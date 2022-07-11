@@ -7,3 +7,11 @@ This is an Aerocode base platform to exploit Aero activities with open source to
 4.  We have full set of Aerodynamic-CFD code in this  STRUCTURED AND UNSTRUCTURED PDE MAPPED GRID, and some a number of Solver. More details will be provided 
     as we progress over the period of time. 
 5.  I am also writing a good quality manual so that you can play around with it.
+
+
+
+
+# Build Instructions.
+1. Load the .pro file into Qt Creator studio.
+2. And just Build. and run.
+3. It is so far a pure Qt code you can build without any much problem.

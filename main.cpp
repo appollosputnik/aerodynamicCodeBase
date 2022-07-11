@@ -3,7 +3,7 @@
 #include <QSurfaceFormat>
 
 #ifndef QT_NO_OPENGL
-#include "mainwidget.h"
+#include "mainwindow.h"
 #endif
 
 #include <fstream>
@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
     app.setApplicationName("Best Practices GL Qt - V1.0");
     app.setApplicationVersion("0.1");
 #ifndef QT_NO_OPENGL
-    //MainWidget widget;
-    //widget.show();
+    MainWindow window;
+    window.showMaximized();
 #else
     QLabel note("OpenGL Support required");
     note.show();

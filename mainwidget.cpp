@@ -35,6 +35,34 @@ struct VertexData
 */
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+/*
+
+Aerofoil Geoometry
+   a. Draw a symmetric aerofoil with le(0.0) and te(100.0)
+   b. maximum thickness position (30.0, 0.0)
+   c. Bezier control points (0.0,0.0), (30.0, 15.0), (100.0, 0.0), (30.0, -15.0), (0.0, 0.0)
+   d. x, y. B(t) = SIGMA(i=0, i=n). nCi. (1-t)^(n-i). t^i. Pi
+   e. get aerofoilKnotList.
+   f. get dy/dx aerofoilKnotList
+   g. get d^2y/dx^2 aerofoilKnotList
+   h. camber=> maximum camber(30.0, 0.0) = 0.05C
+   i. Leading edge radius/curvature <= d^2y/dx^2    write option to modify
+   j. Trailing edge cusp (Kutaa condition) => dy/dx write option to modify
+
+   //Algoritm...
+   float xLE = 0.0; yLE = 0.0; xTE = 100.0; yTE = 0.0;
+   float maxThicknessPosX = 30.0, maxThicknessPosY = 0.0;
+   int nBzrCtrlPts = 5;
+   float nezierCtrlPosX[5] = {0.0, 30.0, 100.0, 30.0, 0.0};
+   float nezierCtrlPosY[5] = {0.0, 15.0, 0.0, -15.0, 0.0};
+   int nKnots = 100;
+   float ctrlPts_DyDx[4]; ctrlPts_D2yDx2[3];
+   float camber = 5.0;
+   float maxThickness = 30.0;
+   float DyDxTECuspBezrDyDx[m]; //smoothen between first and last points at the Trailing Edge...
+
+   */
 MainWidget::MainWidget(QWidget *parent) :
     QOpenGLWidget(parent),
     geometries(0),
@@ -269,6 +297,105 @@ void MainWidget::drawAirfoil()
     }
 }
 
+void MainWidget::ellipticMethod()
+{
+    //Generating grid over airfoil: Elliptic method...
+    // delA2(y)/d(chi)A2 + delA2(y)/del(eta)A2 = 0;
+    // delA2(x)/d(chi)A2 + delA2(y)/del(eta)A2 = 0;
+
+    // grid.conf
+    // 0-10%, 10-20%, 20-30%, 30-40%, 40-50%, 50-60%, 60-70%, 70-80%, 80-90%,
+
+    //90-100%
+    //0.1
+
+    // 0.1 , 0.25,	0.5,	0.6,	1,	1,	1,
+    //Read Airfoil Geometry points
+
+    //chi = 11 points.
+    //eta = 11 points.
+
+    float control_points_X[11], control_points_Y[11], chi[11], eta[11];
+    float diff1_x_chi[10], diff1_y_chi[10], diff1_x_eta[10], diff1_y_eta[10];
+    float diff2_x_chi[9], diff2_y_chi[9], diff2_x_eta[9], diff2_y_eta[9];
+
+    for(int i=0; i<10; i++)
+    {
+        diff1_x_chi[i] = (control_points_X[i+1] - control_points_X[i])/(chi[i+1] - chi[i]);
+        diff1_x_eta[i] = (control_points_X[i+1] - control_points_X[i])/(eta[i+1] - eta[i]);
+
+        diff1_y_chi[i] = (control_points_Y[i+1] - control_points_Y[i])/(chi[i+1] - chi[i]);
+        diff1_y_eta[i] = (control_points_Y[i+1] - control_points_Y[i])/(eta[i+1] - eta[i]);
+
+    }
+
+    for(int i=0; i<9; i++)
+    {
+
+        diff2_x_chi[i] = (diff1_x_chi[i+1] - diff1_x_chi[i]);
+        diff2_x_eta[i] = (diff1_x_eta[i+1] - diff1_x_eta[i]);
+
+        diff2_y_chi[i] = (diff1_y_chi[i+1] - diff1_y_chi[i]);
+        diff2_y_eta[i] = (diff1_y_eta[i+1] - diff1_y_eta[i]);
+
+        //Equation:
+        //XchiXeta + YchiYeta = 0; => (X1-X0)^2 + (Y1-Y0)^2 = 0;
+        //XchiYeta - XetaYchi = J(chi, eta); =>
+        //Y1 = Y0 +- sqrt(1 + ((eta1-eta0)/(chi1-chi0))^2
+        //X1^2 - 2. X1. X0 + [X0^2 - (Y1 - Y0)^2]
+
+    }
+
+/*
+    for (int j = 0; j < (0.1 * 100 - 1); j++)
+    {
+
+    for (int i= 0; i < 10; i++)
+    {
+        double* chi = new double[10];
+        double* eta =  new double[10];
+
+        for (int i= 0; i < 10; i++)
+        {
+
+        //chi[j] = chi_initial + chi_step;
+        //eta[j]   eta initial+ eta_step;
+        }
+    }
+
+    for (int i= 0; i < 10; i++)
+    {
+        for (int j = 0; j < (0.1 * 100 - 1); j++)
+        {
+        //diff_chi[j] = chi[j + 1] - chi[j];
+        //diff_eta[j]	eta[j + 1] - eta[j];
+        //diff_x_chi[j] =
+        //diff_y_chi[j] =
+        //diff_x_eta[j] =
+        //diff_y_eta[j] =
+        }
+    }
+    double* x = new double[9];
+    double* y = new double[9];
+    //Code equations 1 - 2; find x2 & y2
+    //continue till x9, y9
+    //i=l; i< 10, process
+
+    for (int i= 0; i < 10; i += 10) {
+        //for (int j = 0; i < (0.1 * segment); j++) {
+    //(x3 - x2)* (chi2 - chil) - (x2 - xl) * (chi3 - chi2)
+    //(x3 - x2) * (eta2 - etal) - (x2 - xl) * (eta3 - eta2);
+    //(y3 - y2)* (chi2 - chil) - (y2 - yl) * (chi3 - chi2) =
+
+    //(y3 - y2) * (eta2 - etal) - (y2 - yl) * (eta3 - eta2);
+    //}
+    //}
+    }
+    }
+*/
+
+}
+
 void MainWidget::hyperbolicMethod()
 {
     //Generating grid over airfoil: Hyperbolic method...
@@ -282,42 +409,28 @@ void MainWidget::hyperbolicMethod()
     //Read Airfoil Geometry points
 
 
-    for (int j = 0; j < (0.1 * 100 - 1); j++)
+    //chi = 11 points.
+    //eta = 11 points.
 
-    {
-    for (int i= 0; i < 10; i++)
-    {
-    double* chi= new double[10];
-    double* eta= new double[10];
-    for (int i= 0; i < 10; i++)
-    {
-      //chi[j] = //chi_init1al + chi_step;
-      //eta[j] = //eta_initial + eta_step;
-    }
+    float control_points_X[11], control_points_Y[11], chi[11], eta[11];
+    float diff_x_chi[10], diff_y_chi[10], diff_x_eta[10], diff_y_eta[10];
 
-    for (int i= 0; i < 10; i++)
+    for(int i=0; i<10; i++)
     {
-        for (int j = 0; j < (0.1 * 100 - 1); j++)
-        {
-        //diff_chi[j] = chi[j + 1] - chi[j];
-        //diff_eta[j] = eta[j + 1] - eta[j];
-        //diff_x_chi[j] =
-        //diff_y_chi[j] =
+        diff_x_chi[i] = (control_points_X[i+1] - control_points_X[i])/(chi[i+1] - chi[i]);
+        diff_x_eta[i] = (control_points_X[i+1] - control_points_X[i])/(eta[i+1] - eta[i]);
 
-        //diff_x_eta[j] =
-        //diff_y_eta[j] =
-        }
+        diff_y_chi[i] = (control_points_Y[i+1] - control_points_Y[i])/(chi[i+1] - chi[i]);
+        diff_y_eta[i] = (control_points_Y[i+1] - control_points_Y[i])/(eta[i+1] - eta[i]);
+
+        //Equation:
+        //XchiXeta + YchiYeta = 0; => (X1-X0)^2 + (Y1-Y0)^2 = 0;
+        //XchiYeta - XetaYchi = J(chi, eta); =>
+        //Y1 = Y0 +- sqrt(1 + ((eta1-eta0)/(chi1-chi0))^2
+        //X1^2 - 2. X1. X0 + [X0^2 - (Y1 - Y0)^2]
 
     }
 
-
-    double* x = new double[9];
-    double* y = new double[9];
-    //Code equations 1 - 2; find x2 & y2
-    //continue till x9, y9
-    //i=l; i< 10, process
-    }
-    }
 
 }
 
@@ -601,73 +714,6 @@ void MainWidget::DomainVertexMethod()
 */
     //AIRFOIL UPPER SURFACE 8 POINTS AND LOWER SURFACE 8 POINTS GENERATE AND MESH USING DOMAIN
     //VERTEX METHOD...
-}
-
-void MainWidget::ellipticMethod()
-{
-    //Generating grid over airfoil: Elliptic method...
-    // delA2(y)/d(chi)A2 + delA2(y)/del(eta)A2 = 0;
-    // delA2(x)/d(chi)A2 + delA2(y)/del(eta)A2 = 0;
-
-    // grid.conf
-    // 0-10%, 10-20%, 20-30%, 30-40%, 40-50%, 50-60%, 60-70%, 70-80%, 80-90%,
-
-    //90-100%
-    //0.1
-
-    // 0.1 , 0.25,	0.5,	0.6,	1,	1,	1,
-    //Read Airfoil Geometry points
-
-
-
-
-    for (int j = 0; j < (0.1 * 100 - 1); j++)
-    {
-
-    for (int i= 0; i < 10; i++)
-    {
-        double* chi = new double[10];
-        double* eta =  new double[10];
-
-        for (int i= 0; i < 10; i++)
-        {
-
-        //chi[j] = chi_initial + chi_step;
-        //eta[j]   eta initial+ eta_step;
-        }
-    }
-
-    for (int i= 0; i < 10; i++)
-    {
-        for (int j = 0; j < (0.1 * 100 - 1); j++)
-        {
-        //diff_chi[j] = chi[j + 1] - chi[j];
-        //diff_eta[j]	eta[j + 1] - eta[j];
-        //diff_x_chi[j] =
-        //diff_y_chi[j] =
-        //diff_x_eta[j] =
-        //diff_y_eta[j] =
-        }
-    }
-    double* x = new double[9];
-    double* y = new double[9];
-    //Code equations 1 - 2; find x2 & y2
-    //continue till x9, y9
-    //i=l; i< 10, process
-
-    for (int i= 0; i < 10; i += 10) {
-        //for (int j = 0; i < (0.1 * segment); j++) {
-    //(x3 - x2)* (chi2 - chil) - (x2 - xl) * (chi3 - chi2)
-    //(x3 - x2) * (eta2 - etal) - (x2 - xl) * (eta3 - eta2);
-    //(y3 - y2)* (chi2 - chil) - (y2 - yl) * (chi3 - chi2) =
-
-    //(y3 - y2) * (eta2 - etal) - (y2 - yl) * (eta3 - eta2);
-    //}
-    //}
-    }
-    }
-
-
 }
 
 void MainWidget::unstructuredMethod()

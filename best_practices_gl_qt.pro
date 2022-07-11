@@ -1,14 +1,22 @@
-QT       += core gui widgets
+QT       += core gui widgets opengl
 
 TARGET = BestPracticesGLQt
 TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    mainwidget.cpp
+    mainwidget.cpp \
+    mainwidget_supplement_1.cpp \
+    mainwidget_supplement_2.cpp \
+    mainwidget_supplement_3.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    mainwidget.h
+    mainwidget.h \
+    mainwidget_supplement_1.h \
+    mainwidget_supplement_2.h \
+    mainwidget_supplement_3.h \
+    mainwindow.h
 
 RESOURCES += \
     shaders.qrc \
@@ -27,3 +35,6 @@ target.path = $$[QT_INSTALL_EXAMPLES]/opengl/cube
 INSTALLS += target
 
 DISTFILES +=
+
+FORMS += \
+    mainwindow.ui
