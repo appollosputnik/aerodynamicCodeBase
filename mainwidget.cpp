@@ -4,7 +4,7 @@
 #include <QVector3D>
 #include "math.h"
 
-float pi = 4*atan(1.0);
+
 
 using namespace  std;
 
@@ -73,7 +73,7 @@ MainWidget::MainWidget(QWidget *parent) :
     m_rot[0] = 0.0;
     m_rot[1] = 0.0;
     m_rot[2] = 0.0;
-
+    pi = 4*atan(1.0);
     timerEvent(0);
     update();
 }

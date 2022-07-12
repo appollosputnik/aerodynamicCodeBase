@@ -4,6 +4,8 @@ TARGET = BestPracticesGLQt
 TEMPLATE = app
 
 SOURCES += \
+    CAirfoilDesignerWindow.cpp \
+    dialogairfoildesigner.cpp \
     main.cpp \
     mainwidget.cpp \
     mainwidget_supplement_1.cpp \
@@ -12,6 +14,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    CAirfoilDesignerWindow.h \
+    dialogairfoildesigner.h \
     mainwidget.h \
     mainwidget_supplement_1.h \
     mainwidget_supplement_2.h \
@@ -37,4 +41,5 @@ INSTALLS += target
 DISTFILES +=
 
 FORMS += \
+    dialogairfoildesigner.ui \
     mainwindow.ui

@@ -1,24 +1,27 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QGridLayout>
+#include <QScrollArea>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+     ui->setupUi(this);
+
     _stack_widget = new QStackedWidget;
+    setCentralWidget(_stack_widget);
 
     _central_default = new MainWidget;
     _central_window_cube_1 = new MainWidgetSupplment_1;
     _mainwidget_supplement_2 = new MainWidgetSupplment_2;
     _mainwidget_supplement_3 = new MainWidgetSupplment_3;
 
+    _airfoil_designer = new DialogAirfoilDesigner;
     _stack_widget->addWidget(_central_default);
     _stack_widget->addWidget(_central_window_cube_1);
     _stack_widget->addWidget(_mainwidget_supplement_2);
     _stack_widget->addWidget(_mainwidget_supplement_3);
-
-    _stack_widget->setCurrentIndex(4);
+    _stack_widget->addWidget(_airfoil_designer);
 
     //QActions
     QAction *_default_action, *_action_1, *_action_2, *_action_3, *_action_4;
@@ -35,15 +38,14 @@ MainWindow::MainWindow(QWidget *parent) :
     _action_3 = new QAction("Torus");
     connect(_action_3, SIGNAL(triggered()), this, SLOT(_slot_3_Torus()));
 
-    _action_4 = new QAction("ColorCube");
-    connect(_action_4, SIGNAL(triggered()), this, SLOT(_slot_4_colorCube()));
+    _action_4 = new QAction("Generate Airfoil...");
+    connect(_action_4, SIGNAL(triggered()), this, SLOT(_slot_4_DrawAirfoil()));
 
     ui->toolBar->addAction(_default_action);
     ui->toolBar->addAction(_action_1);
     ui->toolBar->addAction(_action_2);
     ui->toolBar->addAction(_action_3);
     ui->toolBar->addAction(_action_4);
-    setCentralWidget(_stack_widget);
 }
 
 MainWindow::~MainWindow()
@@ -70,4 +72,9 @@ void MainWindow::_slot_2_checkerboard()
 void MainWindow::_slot_3_Torus()
 {
     _stack_widget->setCurrentIndex(3);
+}
+
+void MainWindow::_slot_4_DrawAirfoil()
+{
+    _stack_widget->setCurrentWidget(_airfoil_designer);
 }
