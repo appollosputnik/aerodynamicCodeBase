@@ -75,7 +75,7 @@ public:
     {
         if (DialogAirfoilDesigner->objectName().isEmpty())
             DialogAirfoilDesigner->setObjectName(QString::fromUtf8("DialogAirfoilDesigner"));
-        DialogAirfoilDesigner->resize(878, 508);
+        DialogAirfoilDesigner->resize(913, 603);
         gridLayout_3 = new QGridLayout(DialogAirfoilDesigner);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         horizontalLayout = new QHBoxLayout();
@@ -86,7 +86,7 @@ public:
         scrollArea_CONTROL_WIDGET->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 319, 465));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 438, 581));
         gridLayout = new QGridLayout(scrollAreaWidgetContents_2);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -258,7 +258,7 @@ public:
         scrollArea_GRAPHICS_WINDOW->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 611, 339));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 417, 273));
         scrollArea_GRAPHICS_WINDOW->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea_GRAPHICS_WINDOW);
@@ -268,16 +268,12 @@ public:
 
         verticalLayout->addWidget(textEdit_CONSOLE_WINDOW);
 
-        verticalLayout->setStretch(0, 3);
-        verticalLayout->setStretch(1, 1);
 
         gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
 
 
         horizontalLayout->addWidget(widget_SCREEN);
 
-        horizontalLayout->setStretch(0, 1);
-        horizontalLayout->setStretch(1, 3);
 
         gridLayout_3->addLayout(horizontalLayout, 0, 0, 1, 1);
 

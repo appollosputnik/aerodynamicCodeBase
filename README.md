@@ -15,3 +15,17 @@ This is an Aerocode base platform to exploit Aero activities with open source to
 1. Load the .pro file into Qt Creator studio.
 2. And just Build. and run.
 3. It is so far a pure Qt code you can build without any much problem.
+
+
+Dated: 13/07/2022
+1.  Now it draws an airfoil inside the bounding box and witin control points of a bezier curve.
+2.  Just goto to airfoil section tab and you will see the bounding box drew by default. The tutorial parameters as follows
+    a. chord = 1 m    //In normalized form
+    b. camber = 0.07 // in percent of chord.
+    c. max thickness = 0.3 // in percent of chord.
+    d. Equation order = 2; // if number of control points = 3 and then order = 2. The control points as follows (0,0), (30,22), (100,0) for upper surfaces.
+				   // lly for lower surfaces 3 control points taken into consideration if not read from file.
+				   // (0,0), (30,-8), (100,0)
+                           // This middles points (30,22) or (30,-8) are coming from camber consideration which is given as 0.07 or 7%c.
+    e. number of knots = 10 //
+3. Finally click on apply button to draw the bezier airfoil...
