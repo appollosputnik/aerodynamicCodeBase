@@ -22,6 +22,7 @@ class CAirfoilDesigner : public QGLWidget
 public:
     explicit CAirfoilDesigner(QWidget *parent = 0);
     ~CAirfoilDesigner();
+    void selectionSort(float arr[], int size);
     void set_domain(float xmin, float xmax, float ymin, float ymax);
     void set_anchors(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);
     void set_bezier_knots(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);

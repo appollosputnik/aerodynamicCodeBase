@@ -53,7 +53,7 @@ void DialogAirfoilDesigner::push_apply_full()
     yMax =  maxThickness/2.0 + camber;
     yMin = -(maxThickness/2.0) + camber;
 
-    cairfoil_designer->set_domain(xMin, xMax, yMin, yMax);
+    cairfoil_designer->set_domain(xMin-5.0, xMax+5.0, yMin-5.0, yMax+5.0);
 
     ////////////////////////////////////////////////////////////////////////////////
     //number of anchors

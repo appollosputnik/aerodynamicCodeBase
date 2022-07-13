@@ -23,7 +23,7 @@ private:
     float *xAnchorU, *yAnchorU, *zAnchorU, *xAnchorL, *yAnchorL, *zAnchorL;
     Ui::DialogAirfoilDesigner *ui;
     CAirfoilDesigner *cairfoil_designer;
-    float xMin, xMax, yMin, yMax;
+    float xMin, xMax, yMin, yMax, xMinKnots, xMaxKnots, yMinKnots, yMaxKnots;
 private slots:
     void set_anchors();
     void set_bezier_knots();

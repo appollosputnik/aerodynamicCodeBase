@@ -68,10 +68,10 @@ static bool ifDraw = false;
 static bool ifDrawKnots = false;
 CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
     QGLWidget(parent),
-    xMin(0.0),
-    xMax(0.0),
-    yMin(0.0),
-    yMax(0.0)
+    xMin(-5.0),
+    xMax(5.0),
+    yMin(-5.0),
+    yMax(5.0)
 {
     trans[0] = 0.0;
     trans[1] = 0.0;
@@ -157,7 +157,7 @@ void CAirfoilDesigner::resizeGL(int w, int h)
     glViewport(0.0, 0.0, (GLsizei)w, (GLsizei)h);
     glLoadIdentity();
     glMatrixMode(GL_PROJECTION);
-    glOrtho(xMin - 10.0f, xMax + 10.0f, yMax + 10.0f, yMin - 10.0f, -5.0, 5.0);
+    glOrtho(xMin, xMax, yMax, yMin, -5.0, 5.0);
 }
 
 void CAirfoilDesigner::paintGL()
@@ -169,7 +169,7 @@ void CAirfoilDesigner::paintGL()
     glRotatef(m_rot[1], 0.0, 1.0, 0.0);
     glScalef(zoomFactor, zoomFactor, zoomFactor);
 
-    glBegin(GL_QUADS);
+    /* glBegin(GL_QUADS);
     glPointSize(4.0);
     glColor3f(0.0, 0.0, 1.0);
     glVertex2f(xMin-3, yMin-3);
@@ -177,7 +177,7 @@ void CAirfoilDesigner::paintGL()
     glVertex2f(xMax+3, yMax+3);
     glVertex2f(xMin-3, yMax+3);
     glEnd();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
 
     if(ifDraw) {
     glBegin(GL_LINE_STRIP);
@@ -261,8 +261,32 @@ void CAirfoilDesigner::set_anchors(int n, float *x1, float *y1, float *z1, float
     _anchorXl = x2; _anchorYl = y2; _anchorZl = z2;
     if(!ifDraw)
     ifDraw = !ifDraw;
+
+
+    //
+    float *x = new float[n*2];
+    int i = 0;
+    for(i=0; i<(n); i++)
+        x[i] = x1[i];
+    for(i=n; i<(n*2); i++)
+        x[i] = x2[i-n];
+    //
+    float *y = new float[n*2];
+    i = 0;
+    for(i=0; i<(n); i++)
+        y[i] = y1[i];
+    for(i=n; i<(n*2); i++)
+        y[i] = y2[i-n];
+
+    selectionSort(x, n*2);
+    selectionSort(y, n*2);
+
+    xMin = x[0]; xMax = x[n*2-1];
+    yMin = y[0]; yMax = y[n*2-1];
+
     updateGL();
 }
+
 void CAirfoilDesigner::set_bezier_knots(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2)
 {
      nKnots = n;
@@ -270,5 +294,43 @@ void CAirfoilDesigner::set_bezier_knots(int n, float *x1, float *y1, float *z1, 
     _knotsXl = x2; _knotsYl = y2; _knotsZl = z2;
     if(!ifDrawKnots)
     ifDrawKnots = !ifDrawKnots;
+
+    //
+    float *x = new float[n*2];
+    int i = 0;
+    for(i=0; i<(n); i++)
+        x[i] = x1[i];
+    for(i=n; i<(n*2); i++)
+        x[i] = x2[i-n];
+    //
+    float *y = new float[n*2];
+    i = 0;
+    for(i=0; i<(n); i++)
+        y[i] = y1[i];
+    for(i=n; i<(n*2); i++)
+        y[i] = y2[i-n];
+
+    selectionSort(x, n*2);
+    selectionSort(y, n*2);
+
+    xMin = x[0]; xMax = x[n*2-1];
+    yMin = y[0]; yMax = y[n*2-1];
+
     updateGL();
+}
+
+void CAirfoilDesigner::selectionSort(float arr[], int size)
+{
+    int indexOfMin, pass, j;
+
+    for(pass=0; pass<size-1; pass++)
+    {
+        indexOfMin = pass;
+
+        for(j=pass+1; j<size; j++)
+            if(arr[j] < arr[indexOfMin])
+                indexOfMin = j;
+
+        std::swap(arr[pass], arr[indexOfMin]);
+    }
 }
