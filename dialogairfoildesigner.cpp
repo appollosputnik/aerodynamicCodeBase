@@ -216,7 +216,7 @@ void DialogAirfoilDesigner::push_apply_full()
 
                     for(i=0; i<nKnots; i++)
                     {
-                        xu_[i] = xu[nKnots-1-i];
+                        xu_[i] = (xu[i] + (xu[nKnots-1] - xu[nKnots-1-i]))/2.0;
                         yu_[i] = yu[nKnots-1-i];
                         zu_[i] = zu[nKnots-1-i];
                     }
@@ -250,7 +250,7 @@ void DialogAirfoilDesigner::push_apply_full()
 
                     for(i=0; i<nKnots; i++)
                     {
-                        xl_[i] = xl[nKnots-1-i];
+                        xl_[i] = (xl[i] + (xl[nKnots-1] - xl[nKnots-1-i]))/2.0;
                         yl_[i] = yl[nKnots-1-i];
                         zl_[i] = zl[nKnots-1-i];
                     }
@@ -321,9 +321,10 @@ void DialogAirfoilDesigner::push_apply_full()
 
             for(i=0; i<nKnots; i++)
             {
-                xu_[i] = xu[nKnots-1-i];
+                xu_[i] = (xu[i] + (xu[nKnots-1] - xu[nKnots-1-i]))/2.0;
                 yu_[i] = yu[nKnots-1-i];
                 zu_[i] = zu[nKnots-1-i];
+                ui->textEdit_CONSOLE_WINDOW->append(QString::number(xu_[i]) + " " + QString::number(yu_[i]) + " " + QString::number(zu_[i]) + "\n");
             }
         //Lower surfaces
         ////////////////////////////////////////////////////////////////////////////////////////
@@ -352,9 +353,12 @@ void DialogAirfoilDesigner::push_apply_full()
 
             for(i=0; i<nKnots; i++)
             {
-                xl_[i] = xl[nKnots-1-i];
+                xl_[i] = (xl[i] + (xl[nKnots-1] - xl[nKnots-1-i]))/2.0;
                 yl_[i] = yl[nKnots-1-i];
                 zl_[i] = zl[nKnots-1-i];
+
+                ui->textEdit_CONSOLE_WINDOW->append(QString::number(xl_[i]) + " " + QString::number(yl_[i]) + " " + QString::number(zl_[i]) + "\n");
+
             }
             //Draw Airfoil...
             set_anchors();
@@ -426,5 +430,5 @@ void DialogAirfoilDesigner::set_anchors()
 }
 void DialogAirfoilDesigner::set_bezier_knots()
 {
-    cairfoil_designer->set_bezier_knots(nKnots, xu, yu_, zu, xl, yl_, zl );
+    cairfoil_designer->set_bezier_knots(nKnots, xu_, yu_, zu, xl_, yl_, zl );
 }

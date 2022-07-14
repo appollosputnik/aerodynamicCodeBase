@@ -1,0 +1,17 @@
+debug/CAirfoilDesignerWindow.o
+debug/dialogairfoildesigner.o
+debug/main.o
+debug/mainwidget.o
+debug/mainwidget_supplement_1.o
+debug/mainwidget_supplement_2.o
+debug/mainwidget_supplement_3.o
+debug/mainwindow.o
+debug/qrc_shaders.o
+debug/qrc_textures.o
+debug/moc_CAirfoilDesignerWindow.o
+debug/moc_dialogairfoildesigner.o
+debug/moc_mainwidget.o
+debug/moc_mainwidget_supplement_1.o
+debug/moc_mainwidget_supplement_2.o
+debug/moc_mainwidget_supplement_3.o
+debug/moc_mainwindow.o

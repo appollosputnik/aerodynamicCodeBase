@@ -1,0 +1,17 @@
+release/CAirfoilDesignerWindow.o
+release/dialogairfoildesigner.o
+release/main.o
+release/mainwidget.o
+release/mainwidget_supplement_1.o
+release/mainwidget_supplement_2.o
+release/mainwidget_supplement_3.o
+release/mainwindow.o
+release/qrc_shaders.o
+release/qrc_textures.o
+release/moc_CAirfoilDesignerWindow.o
+release/moc_dialogairfoildesigner.o
+release/moc_mainwidget.o
+release/moc_mainwidget_supplement_1.o
+release/moc_mainwidget_supplement_2.o
+release/moc_mainwidget_supplement_3.o
+release/moc_mainwindow.o
