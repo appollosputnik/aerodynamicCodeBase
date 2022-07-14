@@ -73,6 +73,9 @@ CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
     yMin(-5.0),
     yMax(5.0)
 {
+    _cx = 0.0;
+    _cy = 0.0;
+    _cz = 0.0;
     trans[0] = 0.0;
     trans[1] = 0.0;
     trans[2] = 0.0;
@@ -89,7 +92,7 @@ CAirfoilDesigner::~CAirfoilDesigner()
 void CAirfoilDesigner::mousePressEvent(QMouseEvent *e)
 {
     // Save mouse press position
-    old_pos = e->localPos();
+    old_pos = e->pos();
 }
 
 void CAirfoilDesigner::mouseReleaseEvent(QMouseEvent *e)
@@ -98,25 +101,23 @@ void CAirfoilDesigner::mouseReleaseEvent(QMouseEvent *e)
 
 void CAirfoilDesigner::mouseMoveEvent(QMouseEvent *e)
 {
-    new_pos = e->localPos();
+    new_pos = e->pos();
 
-    dx = new_pos.x() - old_pos.x();
-    dy = old_pos.y() - new_pos.y();
+    dx = old_pos.x() - new_pos.x();
+    dy = new_pos.y() - old_pos.y();
 
     if(e->button()==Qt::LeftButton)
     {
-        trans[0] += dx;
+        trans[0] -= dx;
         trans[1] -= dy;
-        updateGL();
     }
     else if(e->button()==Qt::RightButton)
     {
-        m_rot[0] += dx/500.0f;
-        m_rot[1] -= dy/500.0f;
+        m_rot[0] += dx;
+        m_rot[1] -= dy;
         #define clamp(x) x = x > 360.0f ? x-360.0f : x < -360.0f ? x+=360.0f : x
         clamp(m_rot[0]);
         clamp(m_rot[1]);
-        updateGL();
     }
 
     else if(e->button()==Qt::MiddleButton)
@@ -128,16 +129,18 @@ void CAirfoilDesigner::mouseMoveEvent(QMouseEvent *e)
         QString str = "No operation at this point of time...";
 
     old_pos = new_pos;
+
+    updateGL();
 }
 void CAirfoilDesigner::wheelEvent(QWheelEvent *e)
 {
     if(e->delta() > 0)
     {
-        zoomFactor *= 0.75;
+        zoomFactor /= 0.75;
     }
     else if(e->delta() <= 0)
     {
-        zoomFactor /= 0.75;
+        zoomFactor *= 0.75;
     }
 
     updateGL();
@@ -150,26 +153,27 @@ void CAirfoilDesigner::initializeGL()
 
 void CAirfoilDesigner::resizeGL(int w, int h)
 {
-    // Calculate aspect ratio
-    qreal aspect = qreal(w) / qreal(h ? h : 1);
-    xMin *= aspect; xMax *= aspect;
-    //xMin *= aspect; xMax *= aspect;
     glViewport(0.0, 0.0, (GLsizei)w, (GLsizei)h);
     glLoadIdentity();
     glMatrixMode(GL_PROJECTION);
-    glOrtho(xMin, xMax, yMax, yMin, -5.0, 5.0);
+    glOrtho(xMin-100, xMax+100, yMax+100, yMin-100, -5.0, 5.0);
 }
 
 void CAirfoilDesigner::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glTranslatef(trans[0], trans[1], 0.0f);
-    glRotatef(m_rot[0], 1.0, 0.0, 0.0);
-    glRotatef(m_rot[1], 0.0, 1.0, 0.0);
-    glScalef(zoomFactor, zoomFactor, zoomFactor);
 
-    /* glBegin(GL_QUADS);
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glOrtho(xMin-100, xMax+100, yMax+100, yMin-100, -5.0, 5.0);
+
+    glTranslatef(trans[0], trans[1], 0.0f);
+    glTranslatef(_cx, _cy, _cz);
+    glScalef(zoomFactor, zoomFactor, zoomFactor);
+    glTranslatef(-_cx, -_cy, -_cz);
+
+/*  glBegin(GL_QUADS);
     glPointSize(4.0);
     glColor3f(0.0, 0.0, 1.0);
     glVertex2f(xMin-3, yMin-3);
@@ -184,18 +188,7 @@ void CAirfoilDesigner::paintGL()
     glColor3f(1.0, 0.0, 0.0);
     for(int i=0; i<nAnchors; i++)
     {
-    if(i<nAnchors/2) {
-        _anchorXu[i] = _anchorXu[i];
         glVertex2f(_anchorXu[i], _anchorYu[i]);
-    }
-    else if(i>nAnchors/2) {
-        _anchorXu[i] = _anchorXu[i];
-        glVertex2f(_anchorXu[i], _anchorYu[i]);
-    }
-    else {
-        _anchorXu[i] = _anchorXu[i];
-        glVertex2f(_anchorXu[i], _anchorYu[i]);
-    }
     }
     glEnd();
 
@@ -203,15 +196,6 @@ void CAirfoilDesigner::paintGL()
     glColor3f(1.0, 0.0, 0.0);
     for(int i=0; i<nAnchors; i++)
     {
-    if(i<nAnchors/2) {
-        _anchorXl[i] = _anchorXl[i];
-        glVertex2f(_anchorXl[i], _anchorYl[i]);
-    }
-    else if(i>nAnchors/2) {
-        _anchorXl[i] = _anchorXl[i];
-        glVertex2f(_anchorXl[i], _anchorYl[i]);
-    }
-    else
         glVertex2f(_anchorXl[i], _anchorYl[i]);
     }
     glEnd();
@@ -229,29 +213,14 @@ void CAirfoilDesigner::paintGL()
     glBegin(GL_LINE_STRIP);
     glColor3f(0.0, 1.0, 0.0);
     for(int i=0; i<nKnots; i++) {
-    if(i<nKnots/2) {
-        _knotsXl[i] = _knotsXl[i];
-        glVertex2f(_knotsXl[i], _knotsYl[i]);
-    }
-    else if(i>nKnots/2) {
-        _knotsXl[i] = _knotsXl[i];
-        glVertex2f(_knotsXl[i], _knotsYl[i]);
-    }
-    else
         glVertex2f(_knotsXl[i], _knotsYl[i]);
     }
     glEnd();
     }
-    glFlush();
-}
 
-void CAirfoilDesigner::set_domain(float xmin, float xmax, float ymin, float ymax)
-{
-    xMin = xmin;
-    xMax = xmax;
-    yMin = ymin;
-    yMax = ymax;
-    updateGL();
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glFlush();
 }
 
 void CAirfoilDesigner::set_anchors(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2)
@@ -262,15 +231,13 @@ void CAirfoilDesigner::set_anchors(int n, float *x1, float *y1, float *z1, float
     if(!ifDraw)
     ifDraw = !ifDraw;
 
-
-    //
     float *x = new float[n*2];
     int i = 0;
     for(i=0; i<(n); i++)
         x[i] = x1[i];
     for(i=n; i<(n*2); i++)
         x[i] = x2[i-n];
-    //
+
     float *y = new float[n*2];
     i = 0;
     for(i=0; i<(n); i++)
@@ -278,12 +245,15 @@ void CAirfoilDesigner::set_anchors(int n, float *x1, float *y1, float *z1, float
     for(i=n; i<(n*2); i++)
         y[i] = y2[i-n];
 
-    selectionSort(x, n*2);
+    selectionSort(x, n);
     selectionSort(y, n*2);
 
     xMin = x[0]; xMax = x[n*2-1];
-    yMin = y[0]; yMax = y[n*2-1];
+    yMax = y[0]; yMin = y[n*2-1];
 
+    _cx = xMin + ((xMax - xMin)/2.0);
+    _cy = yMin + ((yMax - yMin)/2.0);
+    _cz = 0.0;
     updateGL();
 }
 
@@ -294,28 +264,6 @@ void CAirfoilDesigner::set_bezier_knots(int n, float *x1, float *y1, float *z1, 
     _knotsXl = x2; _knotsYl = y2; _knotsZl = z2;
     if(!ifDrawKnots)
     ifDrawKnots = !ifDrawKnots;
-
-    //
-    float *x = new float[n*2];
-    int i = 0;
-    for(i=0; i<(n); i++)
-        x[i] = x1[i];
-    for(i=n; i<(n*2); i++)
-        x[i] = x2[i-n];
-    //
-    float *y = new float[n*2];
-    i = 0;
-    for(i=0; i<(n); i++)
-        y[i] = y1[i];
-    for(i=n; i<(n*2); i++)
-        y[i] = y2[i-n];
-
-    selectionSort(x, n*2);
-    selectionSort(y, n*2);
-
-    xMin = x[0]; xMax = x[n*2-1];
-    yMin = y[0]; yMax = y[n*2-1];
-
     updateGL();
 }
 

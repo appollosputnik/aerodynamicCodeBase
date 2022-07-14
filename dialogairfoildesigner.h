@@ -19,8 +19,9 @@ private:
     int nKnots;
     static int i;
     static int N;
-    float *xu, *yu, *zu, *xl, *yl, *zl;
-    float *xAnchorU, *yAnchorU, *zAnchorU, *xAnchorL, *yAnchorL, *zAnchorL;
+    float *xu, *yu, *zu, *xl, *yl, *zl, *xu_, *yu_, *zu_, *xl_, *yl_, *zl_;
+    float *xAnchorU, *yAnchorU, *zAnchorU, *xAnchorL, *yAnchorL, *zAnchorL,
+    *xAnchorU_, *yAnchorU_, *zAnchorU_, *xAnchorL_, *yAnchorL_, *zAnchorL_;
     Ui::DialogAirfoilDesigner *ui;
     CAirfoilDesigner *cairfoil_designer;
     float xMin, xMax, yMin, yMax, xMinKnots, xMaxKnots, yMinKnots, yMaxKnots;

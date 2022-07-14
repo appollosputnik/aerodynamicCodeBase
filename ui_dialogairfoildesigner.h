@@ -46,6 +46,10 @@ public:
     QLabel *label_3;
     QLineEdit *lineEdit_MAX_THICKNESS;
     QSpacerItem *horizontalSpacer_3;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_6;
+    QLineEdit *lineEdit_MAX_THICKNESS_POS;
+    QSpacerItem *horizontalSpacer_8;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_4;
     QLineEdit *lineEdit_ORDER;
@@ -151,6 +155,25 @@ public:
 
 
         verticalLayout_2->addLayout(horizontalLayout_4);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        label_6 = new QLabel(scrollAreaWidgetContents_2);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        horizontalLayout_9->addWidget(label_6);
+
+        lineEdit_MAX_THICKNESS_POS = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_MAX_THICKNESS_POS->setObjectName(QString::fromUtf8("lineEdit_MAX_THICKNESS_POS"));
+
+        horizontalLayout_9->addWidget(lineEdit_MAX_THICKNESS_POS);
+
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_8);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_9);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -287,10 +310,17 @@ public:
     {
         DialogAirfoilDesigner->setWindowTitle(QCoreApplication::translate("DialogAirfoilDesigner", "Dialog", nullptr));
         label->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Chord Length :", nullptr));
+        lineEdit_CHORD_LENGTH->setText(QCoreApplication::translate("DialogAirfoilDesigner", "100", nullptr));
         label_2->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Camber (%c):", nullptr));
+        lineEdit_CAMBER->setText(QCoreApplication::translate("DialogAirfoilDesigner", "7", nullptr));
         label_3->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Max Thickness (%c):", nullptr));
+        lineEdit_MAX_THICKNESS->setText(QCoreApplication::translate("DialogAirfoilDesigner", "30", nullptr));
+        label_6->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Max Thickness position:", nullptr));
+        lineEdit_MAX_THICKNESS_POS->setText(QCoreApplication::translate("DialogAirfoilDesigner", "30", nullptr));
         label_4->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Order:", nullptr));
+        lineEdit_ORDER->setText(QCoreApplication::translate("DialogAirfoilDesigner", "2", nullptr));
         label_5->setText(QCoreApplication::translate("DialogAirfoilDesigner", "No. Knots:", nullptr));
+        lineEdit_NO_KNOTS->setText(QCoreApplication::translate("DialogAirfoilDesigner", "11", nullptr));
         pushButton_READ_ANCHORS->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Read Anchors", nullptr));
         pushButton_APPLY_READ_ANCHORS->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Apply", nullptr));
         pushButton_APPLY_FULL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Apply", nullptr));

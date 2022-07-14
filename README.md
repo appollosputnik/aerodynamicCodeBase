@@ -29,3 +29,7 @@ Dated: 13/07/2022
                            // This middles points (30,22) or (30,-8) are coming from camber consideration which is given as 0.07 or 7%c.
     e. number of knots = 10 //
 3. Finally click on apply button to draw the bezier airfoil...
+
+
+Date: 14/07/2022
+1.  Now do the process of yesterday and you will see more refined and smoothened curve airfoil and convex hull of the anchors.

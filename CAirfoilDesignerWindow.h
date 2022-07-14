@@ -23,7 +23,6 @@ public:
     explicit CAirfoilDesigner(QWidget *parent = 0);
     ~CAirfoilDesigner();
     void selectionSort(float arr[], int size);
-    void set_domain(float xmin, float xmax, float ymin, float ymax);
     void set_anchors(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);
     void set_bezier_knots(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);
 protected:
@@ -35,7 +34,7 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 private:
-    float _cx, _cy;
+    float _cx, _cy, _cz;
     QPointF old_pos, new_pos;
     float trans[3];
     float dx, dy;

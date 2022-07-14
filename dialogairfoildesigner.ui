@@ -61,7 +61,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_CHORD_LENGTH"/>
+              <widget class="QLineEdit" name="lineEdit_CHORD_LENGTH">
+               <property name="text">
+                <string>100</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="horizontalSpacer">
@@ -94,7 +98,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_CAMBER"/>
+              <widget class="QLineEdit" name="lineEdit_CAMBER">
+               <property name="text">
+                <string>7</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="horizontalSpacer_2">
@@ -127,10 +135,45 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_MAX_THICKNESS"/>
+              <widget class="QLineEdit" name="lineEdit_MAX_THICKNESS">
+               <property name="text">
+                <string>30</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Max Thickness position:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_MAX_THICKNESS_POS">
+               <property name="text">
+                <string>30</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_8">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -160,7 +203,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_ORDER"/>
+              <widget class="QLineEdit" name="lineEdit_ORDER">
+               <property name="text">
+                <string>2</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="horizontalSpacer_4">
@@ -193,7 +240,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_NO_KNOTS"/>
+              <widget class="QLineEdit" name="lineEdit_NO_KNOTS">
+               <property name="text">
+                <string>11</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="horizontalSpacer_5">
