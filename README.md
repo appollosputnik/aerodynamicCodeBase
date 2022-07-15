@@ -33,3 +33,8 @@ Dated: 13/07/2022
 
 Date: 14/07/2022
 1.  Now do the process of yesterday and you will see more refined and smoothened curve airfoil and convex hull of the anchors.
+
+Date: 15/07/2022
+1.  A new tab added for Aerodynamic real time curve and ploting.
+2.  This curve will require you to press a 'start' button and play the evolution. Finally it runs on exploration basis. so that the population of CL data points   
+    against alpha value be generated. Only real time is shown here, but not exactly full featured CL~Alpha is drawn so far. It's under progress of calculation.
