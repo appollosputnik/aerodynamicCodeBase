@@ -11,7 +11,12 @@ SOURCES += \
     mainwidget_supplement_1.cpp \
     mainwidget_supplement_2.cpp \
     mainwidget_supplement_3.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mainwindow_.h \
+    scrollzoomer.h \
+    scrollbar.h \
+    incrementalplot.h \
+    randomplot.h
 
 HEADERS += \
     CAirfoilDesignerWindow.h \
@@ -20,7 +25,12 @@ HEADERS += \
     mainwidget_supplement_1.h \
     mainwidget_supplement_2.h \
     mainwidget_supplement_3.h \
-    mainwindow.h
+    mainwindow.h \
+    mainwindow_.cpp \
+    scrollzoomer.cpp \
+    scrollbar.cpp \
+    incrementalplot.cpp \
+    randomplot.cpp
 
 RESOURCES += \
     shaders.qrc \
@@ -32,7 +42,7 @@ Airfoildata.txt \
 gl-widget-mouse-code.txt \
 weather_data.txt
 
-LIBS += -lOPENGL32 -lglu32
+LIBS += LIBS += -LD:\qwt-6.1.4\lib -lqwt -lOPENGL32 -lglu32
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/opengl/cube

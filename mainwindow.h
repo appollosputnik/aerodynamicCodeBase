@@ -8,6 +8,7 @@
 #include "mainwidget_supplement_2.h"
 #include "mainwidget_supplement_3.h"
 #include "dialogairfoildesigner.h"
+#include "mainwindow_.h"
 namespace Ui {
 class MainWindow;
 }
