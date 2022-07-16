@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _central_window_cube_1 = new MainWidgetSupplment_1;
     _mainwidget_supplement_2 = new MainWidgetSupplment_2;
     _mainwidget_supplement_3 = new MainWidgetSupplment_3;
+    _mainwindow = new MainWindow_;
 
     _airfoil_designer = new DialogAirfoilDesigner;
 
@@ -23,9 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     _stack_widget->addWidget(_mainwidget_supplement_2);
     _stack_widget->addWidget(_mainwidget_supplement_3);
     _stack_widget->addWidget(_airfoil_designer);
+    _stack_widget->addWidget(_mainwindow);
 
     //QActions
-    QAction *_default_action, *_action_1, *_action_2, *_action_3, *_action_4;
+    QAction *_default_action, *_action_1, *_action_2, *_action_3, *_action_4
+            , *_action_5;
 
     _default_action = new QAction("defaultCube");
     connect(_default_action, SIGNAL(triggered()), this, SLOT(_default_slot()));
@@ -42,11 +45,18 @@ MainWindow::MainWindow(QWidget *parent) :
     _action_4 = new QAction("Generate Airfoil...");
     connect(_action_4, SIGNAL(triggered()), this, SLOT(_slot_4_DrawAirfoil()));
 
+
+    _action_5 = new QAction("Real time CL~Alpha curve...");
+    connect(_action_5, SIGNAL(triggered()), this, SLOT(_slot_5_realtime()));
+
     ui->toolBar->addAction(_default_action);
     ui->toolBar->addAction(_action_1);
     ui->toolBar->addAction(_action_2);
     ui->toolBar->addAction(_action_3);
     ui->toolBar->addAction(_action_4);
+    ui->toolBar->addAction(_action_5);
+
+
 
     _stack_widget->setCurrentIndex(4);
 }
@@ -80,4 +90,9 @@ void MainWindow::_slot_3_Torus()
 void MainWindow::_slot_4_DrawAirfoil()
 {
     _stack_widget->setCurrentIndex(4);
+}
+
+void MainWindow::_slot_5_realtime()
+{
+    _stack_widget->setCurrentIndex(5);
 }

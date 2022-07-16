@@ -41,6 +41,7 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     connect(ui->pushButton_READ_ANCHORS, SIGNAL(clicked()), this, SLOT(push_read_anchors()));
     connect(ui->pushButton_APPLY_READ_ANCHORS, SIGNAL(clicked()), this, SLOT(push_apply_anchors()));
     connect(ui->pushButton_APPLY_FULL, SIGNAL(clicked()), this, SLOT(push_apply_full()));
+    connect(ui->pushButton_DRAW_H_GRID, SIGNAL(clicked()), this, SLOT(drawHGrid()));
 
     cairfoil_designer = new CAirfoilDesigner;
     ui->scrollArea_GRAPHICS_WINDOW->setWidget(cairfoil_designer);
@@ -55,13 +56,17 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     splitter2->addWidget(ui->textEdit_CONSOLE_WINDOW);
     ui->verticalLayout->addWidget(splitter2);
     ui->horizontalLayout->addWidget(splitter1);
-
     N = -1;
 }
 
 DialogAirfoilDesigner::~DialogAirfoilDesigner()
 {
     delete ui;
+}
+
+void DialogAirfoilDesigner::drawHGrid()
+{
+    cairfoil_designer->generateGridOverAirfoil();
 }
 
 void DialogAirfoilDesigner::push_apply_full()

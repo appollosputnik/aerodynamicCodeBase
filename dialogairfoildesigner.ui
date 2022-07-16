@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>913</width>
-    <height>603</height>
+    <width>831</width>
+    <height>467</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>438</width>
-          <height>581</height>
+          <width>397</width>
+          <height>445</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -331,6 +331,36 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,0">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="pushButton_DRAW_H_GRID">
+               <property name="text">
+                <string>Draw Hyperbolic Grid...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -370,8 +400,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>417</width>
-               <height>273</height>
+               <width>376</width>
+               <height>205</height>
               </rect>
              </property>
             </widget>

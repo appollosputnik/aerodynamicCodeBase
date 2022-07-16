@@ -39,6 +39,7 @@ public:
     void drawWing();
     void drawTail();
     void drawFin();
+
 protected:
     void mousePressEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;

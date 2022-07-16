@@ -22,6 +22,7 @@ class CAirfoilDesigner : public QGLWidget
 public:
     explicit CAirfoilDesigner(QWidget *parent = 0);
     ~CAirfoilDesigner();
+    void generateGridOverAirfoil();
     void selectionSort(float arr[], int size);
     void set_anchors(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);
     void set_bezier_knots(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);
@@ -34,6 +35,8 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 private:
+    int nHGrid;
+    float * xHyperbolic, *yHyperbolic;
     float _cx, _cy, _cz;
     QPointF old_pos, new_pos;
     float trans[3];

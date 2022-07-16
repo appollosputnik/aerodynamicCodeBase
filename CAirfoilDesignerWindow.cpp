@@ -66,6 +66,7 @@ Aerofoil Geoometry
 
 static bool ifDraw = false;
 static bool ifDrawKnots = false;
+static bool ifDrawHGrid = false;
 CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
     QGLWidget(parent),
     xMin(-5.0),
@@ -83,10 +84,58 @@ CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
     m_rot[1] = 0.0;
     m_rot[2] = 0.0;
     zoomFactor = 1.0;
+    nHGrid = 11;
 }
 
 CAirfoilDesigner::~CAirfoilDesigner()
 {
+}
+
+void CAirfoilDesigner::generateGridOverAirfoil()
+{
+    float *chi = new float[nHGrid], *eta = new float[nHGrid];
+
+        float inter = 1.0 / (nHGrid-1);
+
+        //out << "chi " << " eta " << " x " << " y " << "\n";
+
+        chi[0] = 0.0, eta[0] = 0.0;
+
+        for (int i = 1; i < nHGrid; i++)
+        {
+            chi[i] = chi[i - 1] + inter;
+            eta[i] = eta[i - 1] + inter;
+        }
+
+
+        xHyperbolic = new float[nHGrid], yHyperbolic = new float[nHGrid];
+
+        //out << 11 << "\n";
+        xHyperbolic[0] = 0.0, yHyperbolic[0] = 0.0;
+        for (int i = 1; i < nHGrid; i++)
+        {
+            yHyperbolic[i] = yHyperbolic[i - 1] + sqrt(1 + pow(((eta[i] - eta[i - 1]) / (chi[i] - chi[i - 1])), 2));
+            xHyperbolic[i] = (2 * xHyperbolic[i - 1] + sqrt(2 * xHyperbolic[i - 1] * 2 * xHyperbolic[i - 1] - 4 * ((xHyperbolic[i - 1] * xHyperbolic[i - 1]) - (yHyperbolic[i] - yHyperbolic[i - 1]) * (yHyperbolic[i] - yHyperbolic[i - 1]))))/2;
+        }
+        ifDrawHGrid = true;
+
+        float *x = new float[nHGrid];
+        float *y = new float[nHGrid];
+
+        for(int i=0; i<nHGrid; i++) {
+            x[i] = xHyperbolic[i];
+            y[i] = yHyperbolic[i];
+        }
+
+        xMin = x[0]; xMax = x[nHGrid-1];
+        yMin = y[0]; yMax = y[nHGrid-1];
+
+
+        _cx = xMin + ((xMax - xMin)/2.0);
+        _cy = yMin + ((yMax - yMin)/2.0);
+        _cz = 0.0;
+
+        updateGL();
 }
 
 void CAirfoilDesigner::mousePressEvent(QMouseEvent *e)
@@ -216,6 +265,18 @@ void CAirfoilDesigner::paintGL()
         glVertex2f(_knotsXl[i], _knotsYl[i]);
     }
     glEnd();
+    }
+
+
+    //draw grid hyperbolic...
+    if(ifDrawHGrid)
+    {
+        glBegin(GL_LINE_STRIP);
+        glColor3f(0.0, 1.0, 0.0);
+        for(int i=0; i<nHGrid; i++) {
+            glVertex2f(xHyperbolic[i], yHyperbolic[i]);
+        }
+        glEnd();
     }
 
     glLoadIdentity();

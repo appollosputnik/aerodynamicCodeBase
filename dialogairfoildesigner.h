@@ -26,12 +26,12 @@ private:
     CAirfoilDesigner *cairfoil_designer;
     float xMin, xMax, yMin, yMax, xMinKnots, xMaxKnots, yMinKnots, yMaxKnots;
 private slots:
+    void drawHGrid();
     void set_anchors();
     void set_bezier_knots();
     void push_apply_full();
     void push_apply_anchors();
     void push_read_anchors();
-
 };
 
 #endif // DIALOGAIRFOILDESIGNER_H

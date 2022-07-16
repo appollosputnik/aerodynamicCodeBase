@@ -27,6 +27,7 @@ private:
     MainWidgetSupplment_1 *_central_window_cube_1;
     MainWidgetSupplment_2 *_mainwidget_supplement_2;
     MainWidgetSupplment_3 *_mainwidget_supplement_3;
+    MainWindow_ *_mainwindow;
     Ui::MainWindow *ui;
     DialogAirfoilDesigner *_airfoil_designer;
 private slots:
@@ -35,6 +36,7 @@ private slots:
     void _slot_2_checkerboard();
     void _slot_3_Torus();
     void _slot_4_DrawAirfoil();
+    void _slot_5_realtime();
 };
 
 #endif // MAINWINDOW_H
