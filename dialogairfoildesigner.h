@@ -26,6 +26,17 @@ private:
     CAirfoilDesigner *cairfoil_designer;
     float xMin, xMax, yMin, yMax, xMinKnots, xMaxKnots, yMinKnots, yMaxKnots;
 private slots:
+    //////////////////////////////////////////////////////////////////////////
+    /// \brief drawHGrid
+    void _import_stl();
+    void _export_stl();
+    void _import_obj();
+    void _export_obj();
+    void _import_iges();
+    void _export_iges();
+    void _import_step();
+    void _export_step();
+
     void drawHGrid();
     void set_anchors();
     void set_bezier_knots();

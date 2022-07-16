@@ -10,15 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _stack_widget = new QStackedWidget;
     setCentralWidget(_stack_widget);
-
     _central_default = new MainWidget;
     _central_window_cube_1 = new MainWidgetSupplment_1;
     _mainwidget_supplement_2 = new MainWidgetSupplment_2;
     _mainwidget_supplement_3 = new MainWidgetSupplment_3;
     _mainwindow = new MainWindow_;
-
     _airfoil_designer = new DialogAirfoilDesigner;
-
     _stack_widget->addWidget(_central_default);
     _stack_widget->addWidget(_central_window_cube_1);
     _stack_widget->addWidget(_mainwidget_supplement_2);
@@ -55,8 +52,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolBar->addAction(_action_3);
     ui->toolBar->addAction(_action_4);
     ui->toolBar->addAction(_action_5);
-
-
 
     _stack_widget->setCurrentIndex(4);
 }

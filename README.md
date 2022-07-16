@@ -32,11 +32,4 @@ Dated: 13/07/2022
 
 
 Date: 14/07/2022
-
 1.  Now do the process of yesterday and you will see more refined and smoothened curve airfoil and convex hull of the anchors.
-
-Date: 15/07/2022
-
-1.  Grid is made a Hyperbolic grid but not arranged so it looks like a 
-    line. It is under progress.
-2.  

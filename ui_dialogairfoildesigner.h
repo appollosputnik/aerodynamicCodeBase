@@ -70,6 +70,16 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pushButton_DRAW_H_GRID;
     QSpacerItem *horizontalSpacer_9;
+    QHBoxLayout *horizontalLayout_11;
+    QPushButton *pushButton_IMPORT_STL;
+    QPushButton *pushButton_IMPORT_OBJ;
+    QPushButton *pushButton_IMPORT_IGES;
+    QPushButton *pushButton_IMPORT_STEP;
+    QHBoxLayout *horizontalLayout_12;
+    QPushButton *pushButton_EXPORT_STL;
+    QPushButton *pushButton_EXPORT_OBJ;
+    QPushButton *pushButton_EXPORT_IGES_2;
+    QPushButton *pushButton_EXPORT_STEP;
     QSpacerItem *verticalSpacer_2;
     QWidget *widget_SCREEN;
     QGridLayout *gridLayout_2;
@@ -82,7 +92,7 @@ public:
     {
         if (DialogAirfoilDesigner->objectName().isEmpty())
             DialogAirfoilDesigner->setObjectName(QString::fromUtf8("DialogAirfoilDesigner"));
-        DialogAirfoilDesigner->resize(831, 467);
+        DialogAirfoilDesigner->resize(998, 478);
         gridLayout_3 = new QGridLayout(DialogAirfoilDesigner);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         horizontalLayout = new QHBoxLayout();
@@ -93,7 +103,7 @@ public:
         scrollArea_CONTROL_WIDGET->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 397, 445));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 480, 456));
         gridLayout = new QGridLayout(scrollAreaWidgetContents_2);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -276,12 +286,64 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_10);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
+        horizontalLayout_11->setContentsMargins(5, -1, 5, -1);
+        pushButton_IMPORT_STL = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_IMPORT_STL->setObjectName(QString::fromUtf8("pushButton_IMPORT_STL"));
 
-        verticalLayout_2->addItem(verticalSpacer_2);
+        horizontalLayout_11->addWidget(pushButton_IMPORT_STL);
+
+        pushButton_IMPORT_OBJ = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_IMPORT_OBJ->setObjectName(QString::fromUtf8("pushButton_IMPORT_OBJ"));
+
+        horizontalLayout_11->addWidget(pushButton_IMPORT_OBJ);
+
+        pushButton_IMPORT_IGES = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_IMPORT_IGES->setObjectName(QString::fromUtf8("pushButton_IMPORT_IGES"));
+
+        horizontalLayout_11->addWidget(pushButton_IMPORT_IGES);
+
+        pushButton_IMPORT_STEP = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_IMPORT_STEP->setObjectName(QString::fromUtf8("pushButton_IMPORT_STEP"));
+
+        horizontalLayout_11->addWidget(pushButton_IMPORT_STEP);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_11);
+
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
+        horizontalLayout_12->setContentsMargins(5, -1, 5, -1);
+        pushButton_EXPORT_STL = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_EXPORT_STL->setObjectName(QString::fromUtf8("pushButton_EXPORT_STL"));
+
+        horizontalLayout_12->addWidget(pushButton_EXPORT_STL);
+
+        pushButton_EXPORT_OBJ = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_EXPORT_OBJ->setObjectName(QString::fromUtf8("pushButton_EXPORT_OBJ"));
+
+        horizontalLayout_12->addWidget(pushButton_EXPORT_OBJ);
+
+        pushButton_EXPORT_IGES_2 = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_EXPORT_IGES_2->setObjectName(QString::fromUtf8("pushButton_EXPORT_IGES_2"));
+
+        horizontalLayout_12->addWidget(pushButton_EXPORT_IGES_2);
+
+        pushButton_EXPORT_STEP = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_EXPORT_STEP->setObjectName(QString::fromUtf8("pushButton_EXPORT_STEP"));
+
+        horizontalLayout_12->addWidget(pushButton_EXPORT_STEP);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_12);
 
 
         gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer_2, 1, 0, 1, 1);
 
         scrollArea_CONTROL_WIDGET->setWidget(scrollAreaWidgetContents_2);
 
@@ -299,7 +361,7 @@ public:
         scrollArea_GRAPHICS_WINDOW->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 376, 205));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 460, 210));
         scrollArea_GRAPHICS_WINDOW->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea_GRAPHICS_WINDOW);
@@ -345,6 +407,14 @@ public:
         pushButton_CANCEL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Cancel", nullptr));
         pushButton_CLOSE->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Close", nullptr));
         pushButton_DRAW_H_GRID->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Draw Hyperbolic Grid...", nullptr));
+        pushButton_IMPORT_STL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Import STL...", nullptr));
+        pushButton_IMPORT_OBJ->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Import OBJ...", nullptr));
+        pushButton_IMPORT_IGES->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Import IGES...", nullptr));
+        pushButton_IMPORT_STEP->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Import STEP...", nullptr));
+        pushButton_EXPORT_STL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export STL...", nullptr));
+        pushButton_EXPORT_OBJ->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export OBJ...", nullptr));
+        pushButton_EXPORT_IGES_2->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export IGES...", nullptr));
+        pushButton_EXPORT_STEP->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export STEP...", nullptr));
     } // retranslateUi
 
 };
