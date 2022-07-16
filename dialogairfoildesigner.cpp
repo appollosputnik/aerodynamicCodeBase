@@ -41,8 +41,6 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     connect(ui->pushButton_READ_ANCHORS, SIGNAL(clicked()), this, SLOT(push_read_anchors()));
     connect(ui->pushButton_APPLY_READ_ANCHORS, SIGNAL(clicked()), this, SLOT(push_apply_anchors()));
     connect(ui->pushButton_APPLY_FULL, SIGNAL(clicked()), this, SLOT(push_apply_full()));
-    connect(ui->pushButton_DRAW_H_GRID, SIGNAL(clicked()), this, SLOT(drawHGrid()));
-
     connect(ui->pushButton_IMPORT_STL, SIGNAL(clicked()), this, SLOT(_import_stl()));
     connect(ui->pushButton_EXPORT_STL, SIGNAL(clicked()), this, SLOT(_export_stl()));
     connect(ui->pushButton_IMPORT_OBJ, SIGNAL(clicked()), this, SLOT(_import_obj()));
@@ -51,6 +49,12 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     connect(ui->pushButton_EXPORT_IGES_2, SIGNAL(clicked()), this, SLOT(_export_iges()));
     connect(ui->pushButton_IMPORT_STEP, SIGNAL(clicked()), this, SLOT(_import_step()));
     connect(ui->pushButton_EXPORT_STEP, SIGNAL(clicked()), this, SLOT(_export_step()));
+
+    connect(ui->pushButton_SHOW_HIDE_GRID, SIGNAL(clicked()), this, SLOT(hyperbolic_grid_show_hide()));
+    connect(ui->pushButton_ANCHOR_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(bezier_show_hide()));
+    connect(ui->pushButton_BEZIER_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(anchor_show_hide()));
+
+    connect(ui->pushButton_DRAW_H_GRID, SIGNAL(clicked()), this, SLOT(drawHGrid()));
 
 
     cairfoil_designer = new CAirfoilDesigner;
@@ -74,54 +78,68 @@ DialogAirfoilDesigner::~DialogAirfoilDesigner()
     delete ui;
 }
 
+void DialogAirfoilDesigner::bezier_show_hide()
+{
+    cairfoil_designer->set_ifDrawKnots();
+}
+
+void DialogAirfoilDesigner::anchor_show_hide()
+{
+    cairfoil_designer->set_draw();
+}
+
+void DialogAirfoilDesigner::hyperbolic_grid_show_hide()
+{
+    cairfoil_designer->set_ifDrawHGrid();
+}
 
 void DialogAirfoilDesigner::_import_stl()
 {
-    QMessageBox msg;
-    msg.setText("Import STL...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Import STL"),
+                                                     ".",
+                                                     ("DataSTL (*.stl)"));
 }
 void DialogAirfoilDesigner::_export_stl()
 {
-    QMessageBox msg;
-    msg.setText("Export STL...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Export STL"),
+                                                     ".",
+                                                     ("DataSTL (*.stl)"));
 }
 void DialogAirfoilDesigner::_import_obj()
 {
-    QMessageBox msg;
-    msg.setText("Import OBJ...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Import OBJ"),
+                                                     ".",
+                                                     ("DataOBJ (*.obj)"));
 }
 void DialogAirfoilDesigner::_export_obj()
 {
-    QMessageBox msg;
-    msg.setText("Export OBJ...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Export OBJ"),
+                                                     ".",
+                                                     ("DataOBJ (*.obj)"));
 }
 void DialogAirfoilDesigner::_import_iges()
 {
-    QMessageBox msg;
-    msg.setText("Import IGES...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Import IGES"),
+                                                     ".",
+                                                     ("DataIGES (*.iges)"));
 }
 void DialogAirfoilDesigner::_export_iges()
 {
-    QMessageBox msg;
-    msg.setText("Export IGES...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Export IGES"),
+                                                     ".",
+                                                     ("DataIGES (*.iges)"));
 }
 void DialogAirfoilDesigner::_import_step()
 {
-    QMessageBox msg;
-    msg.setText("Import STEP...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Import STEP"),
+                                                     ".",
+                                                     ("DataSTEP (*.step)"));
 }
 void DialogAirfoilDesigner::_export_step()
 {
-    QMessageBox msg;
-    msg.setText("Export STEP...");
-    msg.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, ("Export STEP"),
+                                                     ".",
+                                                     ("DataSTEP (*.step)"));
 }
 
 

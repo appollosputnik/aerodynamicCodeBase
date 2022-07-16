@@ -61,12 +61,11 @@ Aerofoil Geoometry
    float camber = 5.0;
    float maxThickness = 30.0;
    float DyDxTECuspBezrDyDx[m]; //smoothen between first and last points at the Trailing Edge...
-
    */
 
-static bool ifDraw = false;
-static bool ifDrawKnots = false;
-static bool ifDrawHGrid = false;
+bool CAirfoilDesigner::ifDraw = false;
+bool CAirfoilDesigner::ifDrawKnots = false;
+bool CAirfoilDesigner::ifDrawHGrid = false;
 CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
     QGLWidget(parent),
     xMin(-5.0),
@@ -90,6 +89,37 @@ CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
 CAirfoilDesigner::~CAirfoilDesigner()
 {
 }
+
+void CAirfoilDesigner::set_draw()
+{
+    if(ifDraw==true)
+        ifDraw = false;
+    else {
+        ifDraw = true;
+    }
+    updateGL();
+}
+
+void CAirfoilDesigner::set_ifDrawKnots()
+{
+    if(ifDrawKnots==true)
+        ifDrawKnots = false;
+    else {
+        ifDrawKnots = true;
+    }
+    updateGL();
+}
+
+void CAirfoilDesigner::set_ifDrawHGrid()
+{
+    if(ifDrawHGrid==true)
+        ifDrawHGrid = false;
+    else {
+        ifDrawHGrid = true;
+    }
+    updateGL();
+}
+
 
 void CAirfoilDesigner::generateGridOverAirfoil()
 {
