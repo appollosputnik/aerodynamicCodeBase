@@ -51,10 +51,14 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     connect(ui->pushButton_EXPORT_STEP, SIGNAL(clicked()), this, SLOT(_export_step()));
 
     connect(ui->pushButton_SHOW_HIDE_GRID, SIGNAL(clicked()), this, SLOT(hyperbolic_grid_show_hide()));
-    connect(ui->pushButton_ANCHOR_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(bezier_show_hide()));
-    connect(ui->pushButton_BEZIER_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(anchor_show_hide()));
+    connect(ui->pushButton_ANCHOR_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(anchor_show_hide()));
+    connect(ui->pushButton_BEZIER_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(bezier_show_hide()));
 
     connect(ui->pushButton_DRAW_H_GRID, SIGNAL(clicked()), this, SLOT(drawHGrid()));
+
+
+    //TCS, Wipro, Cognizant, Genpact, Capgemini, Tech Mahindra...
+
 
 
     cairfoil_designer = new CAirfoilDesigner;
@@ -85,7 +89,7 @@ void DialogAirfoilDesigner::bezier_show_hide()
 
 void DialogAirfoilDesigner::anchor_show_hide()
 {
-    cairfoil_designer->set_draw();
+    cairfoil_designer->set_ifDrawAnchors();
 }
 
 void DialogAirfoilDesigner::hyperbolic_grid_show_hide()
@@ -145,7 +149,8 @@ void DialogAirfoilDesigner::_export_step()
 
 void DialogAirfoilDesigner::drawHGrid()
 {
-    cairfoil_designer->generateGridOverAirfoil();
+
+    cairfoil_designer->generateGridOverAirfoil(ui->lineEdit_nHGRID->text().toFloat());
 }
 
 void DialogAirfoilDesigner::push_apply_full()

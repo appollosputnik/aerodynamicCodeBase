@@ -71,6 +71,10 @@ public:
     QPushButton *pushButton_CANCEL;
     QPushButton *pushButton_CLOSE;
     QSpacerItem *horizontalSpacer_6;
+    QHBoxLayout *horizontalLayout_14;
+    QLabel *label_7;
+    QLineEdit *lineEdit_nHGRID;
+    QSpacerItem *horizontalSpacer_11;
     QHBoxLayout *horizontalLayout_10;
     QPushButton *pushButton_DRAW_H_GRID;
     QPushButton *pushButton_SHOW_HIDE_GRID;
@@ -97,7 +101,7 @@ public:
     {
         if (DialogAirfoilDesigner->objectName().isEmpty())
             DialogAirfoilDesigner->setObjectName(QString::fromUtf8("DialogAirfoilDesigner"));
-        DialogAirfoilDesigner->resize(849, 537);
+        DialogAirfoilDesigner->resize(698, 567);
         gridLayout_3 = new QGridLayout(DialogAirfoilDesigner);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         horizontalLayout = new QHBoxLayout();
@@ -108,7 +112,7 @@ public:
         scrollArea_CONTROL_WIDGET->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 420, 515));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 420, 524));
         gridLayout = new QGridLayout(scrollAreaWidgetContents_2);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -296,6 +300,25 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_7);
 
+        horizontalLayout_14 = new QHBoxLayout();
+        horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
+        label_7 = new QLabel(scrollAreaWidgetContents_2);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        horizontalLayout_14->addWidget(label_7);
+
+        lineEdit_nHGRID = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_nHGRID->setObjectName(QString::fromUtf8("lineEdit_nHGRID"));
+
+        horizontalLayout_14->addWidget(lineEdit_nHGRID);
+
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_14->addItem(horizontalSpacer_11);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_14);
+
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
         horizontalLayout_10->setContentsMargins(5, -1, 5, -1);
@@ -391,7 +414,7 @@ public:
         scrollArea_GRAPHICS_WINDOW->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 371, 240));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 237, 255));
         scrollArea_GRAPHICS_WINDOW->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea_GRAPHICS_WINDOW);
@@ -438,6 +461,8 @@ public:
         pushButton_APPLY_FULL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Apply", nullptr));
         pushButton_CANCEL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Cancel", nullptr));
         pushButton_CLOSE->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Close", nullptr));
+        label_7->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Number of grid...:", nullptr));
+        lineEdit_nHGRID->setText(QCoreApplication::translate("DialogAirfoilDesigner", "11", nullptr));
         pushButton_DRAW_H_GRID->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Draw Hyperbolic Grid...", nullptr));
         pushButton_SHOW_HIDE_GRID->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Show/Hide Grid", nullptr));
         pushButton_IMPORT_STL->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Import STL...", nullptr));

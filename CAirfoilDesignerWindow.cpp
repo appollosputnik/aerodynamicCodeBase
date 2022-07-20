@@ -63,9 +63,12 @@ Aerofoil Geoometry
    float DyDxTECuspBezrDyDx[m]; //smoothen between first and last points at the Trailing Edge...
    */
 
-bool CAirfoilDesigner::ifDraw = false;
+bool CAirfoilDesigner::ifDrawAnchors = false;
 bool CAirfoilDesigner::ifDrawKnots = false;
 bool CAirfoilDesigner::ifDrawHGrid = false;
+
+ofstream out("test.txt");
+
 CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
     QGLWidget(parent),
     xMin(-5.0),
@@ -90,12 +93,12 @@ CAirfoilDesigner::~CAirfoilDesigner()
 {
 }
 
-void CAirfoilDesigner::set_draw()
+void CAirfoilDesigner::set_ifDrawAnchors()
 {
-    if(ifDraw==true)
-        ifDraw = false;
+    if(ifDrawAnchors==true)
+        ifDrawAnchors = false;
     else {
-        ifDraw = true;
+        ifDrawAnchors = true;
     }
     updateGL();
 }
@@ -121,13 +124,14 @@ void CAirfoilDesigner::set_ifDrawHGrid()
 }
 
 
-void CAirfoilDesigner::generateGridOverAirfoil()
+void CAirfoilDesigner::generateGridOverAirfoil(float n)
 {
-    float *chi = new float[nHGrid], *eta = new float[nHGrid];
+        nHGrid = n;
+        float *chi = new float[nHGrid], *eta = new float[nHGrid];
 
-        float inter = 1.0 / (nHGrid-1);
+        inter = 1.0 / (nHGrid-1);
 
-        //out << "chi " << " eta " << " x " << " y " << "\n";
+        out << "chi " << " eta " << " x " << " y " << "\n";
 
         chi[0] = 0.0, eta[0] = 0.0;
 
@@ -137,15 +141,16 @@ void CAirfoilDesigner::generateGridOverAirfoil()
             eta[i] = eta[i - 1] + inter;
         }
 
-
         xHyperbolic = new float[nHGrid], yHyperbolic = new float[nHGrid];
 
-        //out << 11 << "\n";
+        out << nHGrid << "\n";
         xHyperbolic[0] = 0.0, yHyperbolic[0] = 0.0;
+        out << chi[0] << " " << eta[0] << " " << xHyperbolic[0] << " " << yHyperbolic[0] << "\n";
         for (int i = 1; i < nHGrid; i++)
         {
             yHyperbolic[i] = yHyperbolic[i - 1] + sqrt(1 + pow(((eta[i] - eta[i - 1]) / (chi[i] - chi[i - 1])), 2));
             xHyperbolic[i] = (2 * xHyperbolic[i - 1] + sqrt(2 * xHyperbolic[i - 1] * 2 * xHyperbolic[i - 1] - 4 * ((xHyperbolic[i - 1] * xHyperbolic[i - 1]) - (yHyperbolic[i] - yHyperbolic[i - 1]) * (yHyperbolic[i] - yHyperbolic[i - 1]))))/2;
+            out << chi[i] << " " << eta[i] << " " << xHyperbolic[i] << " " << yHyperbolic[i] << "\n";
         }
         ifDrawHGrid = true;
 
@@ -165,6 +170,7 @@ void CAirfoilDesigner::generateGridOverAirfoil()
         _cy = yMin + ((yMax - yMin)/2.0);
         _cz = 0.0;
 
+        out.close();
         updateGL();
 }
 
@@ -262,7 +268,7 @@ void CAirfoilDesigner::paintGL()
     glEnd();
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
 
-    if(ifDraw) {
+    if(ifDrawAnchors) {
     glBegin(GL_LINE_STRIP);
     glColor3f(1.0, 0.0, 0.0);
     for(int i=0; i<nAnchors; i++)
@@ -301,12 +307,27 @@ void CAirfoilDesigner::paintGL()
     //draw grid hyperbolic...
     if(ifDrawHGrid)
     {
-        glBegin(GL_LINE_STRIP);
+
         glColor3f(0.0, 1.0, 0.0);
-        for(int i=0; i<nHGrid; i++) {
-            glVertex2f(xHyperbolic[i], yHyperbolic[i]);
+        for(int j=0; j<nHGrid; j++) {
+            glBegin(GL_LINE_STRIP);
+            for(int i=0; i<nHGrid; i++) {
+                glVertex2f(xHyperbolic[i], yHyperbolic[j]);
+            }
+            glEnd();
         }
-        glEnd();
+
+
+
+        glColor3f(0.0, 0.0, 1.0);
+        for(int i=0; i<nHGrid; i++) {
+            glBegin(GL_LINE_STRIP);
+            for(int j=0; j<nHGrid; j++) {
+                glVertex2f(xHyperbolic[i], yHyperbolic[j]);
+            }
+            glEnd();
+        }
+
     }
 
     glLoadIdentity();
@@ -319,8 +340,8 @@ void CAirfoilDesigner::set_anchors(int n, float *x1, float *y1, float *z1, float
      nAnchors = n;
     _anchorXu = x1; _anchorYu = y1; _anchorZu = z1;
     _anchorXl = x2; _anchorYl = y2; _anchorZl = z2;
-    if(!ifDraw)
-    ifDraw = !ifDraw;
+    if(!ifDrawAnchors)
+    ifDrawAnchors = true;
 
     float *x = new float[n*2];
     int i = 0;
@@ -354,7 +375,7 @@ void CAirfoilDesigner::set_bezier_knots(int n, float *x1, float *y1, float *z1, 
     _knotsXu = x1; _knotsYu = y1; _knotsZu = z1;
     _knotsXl = x2; _knotsYl = y2; _knotsZl = z2;
     if(!ifDrawKnots)
-    ifDrawKnots = !ifDrawKnots;
+    ifDrawKnots = true;
     updateGL();
 }
 
