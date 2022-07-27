@@ -22,6 +22,7 @@ class CAirfoilDesigner : public QGLWidget
 public:
     explicit CAirfoilDesigner(QWidget *parent = 0);
     ~CAirfoilDesigner();
+    void drawFuselage(int n, float *xr, float *yr, float *zr, float *xl, float *yl, float *zl);
     void set_ifDrawAnchors();
     void set_ifDrawKnots();
     void set_ifDrawHGrid();
@@ -38,6 +39,10 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 private:
+    static bool ifDrawFuselage;
+    int _nSlicesFuselage;
+    float *xRightFuselage, *yRightFuselage, *zRightFuselage;
+    float *xLeftFuselage, *yLeftFuselage, *zLeftFuselage;
     static bool ifDrawAnchors;
     static bool ifDrawKnots;
     static bool ifDrawHGrid;

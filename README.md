@@ -1,20 +1,4 @@
 # aerodynamicCodeBase
-
-I have no plans to commercialize this tool as of now, but seek some donation to sustain my development. If possible you can contribute to my pay pal id 
-
-PAYPAL ID: 'yellowlemontree0821@gmail.com' or 
-
-into this account bank.
-
-Axis Bank Ltd, INDIA
-BENEFICIARY NAME: SUJAN DASMAHAPATRA
-BANK ACCOUNT NO: 914010008557888
-IFSC CODE:  UTIB0000440
-SWIFT CODE: AXISINBBXXX
-
-Please send an email, if you happen to donate some.
-
-
 This is an Aerocode base platform to exploit Aero activities with open source tools.
 
 1.  We have an Aerofoil shape optimization tool, by name 'aerodynamics.xlsx'
@@ -49,9 +33,3 @@ Dated: 13/07/2022
 
 Date: 14/07/2022
 1.  Now do the process of yesterday and you will see more refined and smoothened curve airfoil and convex hull of the anchors.
-
-Date: 21/07/2022
-
-1.  A complete new tab is designed to calculate the Aerodynamic coefficients, as CL~Alpha & Power curve etc and few more, this tab is supposed to be the dynamic plot of curve using which
-    we can visualize the progress of any Aerodynamic coefficient over abcissa.
-

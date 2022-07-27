@@ -26,6 +26,7 @@ private:
     CAirfoilDesigner *cairfoil_designer;
     float xMin, xMax, yMin, yMax, xMinKnots, xMaxKnots, yMinKnots, yMaxKnots;
 private slots:
+    void drawFuselage();
     void bezier_show_hide();
     void anchor_show_hide();
     void hyperbolic_grid_show_hide();

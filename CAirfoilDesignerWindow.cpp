@@ -66,7 +66,7 @@ Aerofoil Geoometry
 bool CAirfoilDesigner::ifDrawAnchors = false;
 bool CAirfoilDesigner::ifDrawKnots = false;
 bool CAirfoilDesigner::ifDrawHGrid = false;
-
+bool CAirfoilDesigner::ifDrawFuselage = false;
 ofstream out("test.txt");
 
 CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
@@ -149,7 +149,7 @@ void CAirfoilDesigner::generateGridOverAirfoil(float n)
         for (int i = 1; i < nHGrid; i++)
         {
             yHyperbolic[i] = yHyperbolic[i - 1] + sqrt(1 + pow(((eta[i] - eta[i - 1]) / (chi[i] - chi[i - 1])), 2));
-            xHyperbolic[i] = (2 * xHyperbolic[i - 1] + sqrt(2 * xHyperbolic[i - 1] * 2 * xHyperbolic[i - 1] - 4 * ((xHyperbolic[i - 1] * xHyperbolic[i - 1]) - (yHyperbolic[i] - yHyperbolic[i - 1]) * (yHyperbolic[i] - yHyperbolic[i - 1]))))/2;
+            xHyperbolic[i] = (2 * xHyperbolic[i - 1] + sqrt(2 * xHyperbolic[i - 1] * 2 * xHyperbolic[i - 1] - 4 * ((xHyperbolic[i - 1] * xHyperbolic[i - 1]) - (yHyperbolic[i] - yHyperbolic[i - 1]) * (yHyperbolic[i] - yHyperbolic[i - 1]))))/2;          
             out << chi[i] << " " << eta[i] << " " << xHyperbolic[i] << " " << yHyperbolic[i] << "\n";
         }
         ifDrawHGrid = true;
@@ -162,9 +162,39 @@ void CAirfoilDesigner::generateGridOverAirfoil(float n)
             y[i] = yHyperbolic[i];
         }
 
+        selectionSort(x, nHGrid);
+        selectionSort(y, nHGrid);
+
+
+
         xMin = x[0]; xMax = x[nHGrid-1];
         yMin = y[0]; yMax = y[nHGrid-1];
 
+        float width = xMax - xMin;
+        float height = yMax - yMin;
+
+        for(int i=0; i<nHGrid; i++) {
+            xHyperbolic[i] = xHyperbolic[i]/width;
+            yHyperbolic[i] = yHyperbolic[i]/height;
+            yHyperbolic[i] += 0.5;
+        }
+
+        delete [] x; x = nullptr;
+        delete [] y; y = nullptr;
+
+        x = new float[nHGrid];
+        y = new float[nHGrid];
+
+        for(int i=0; i<nHGrid; i++) {
+            x[i] = xHyperbolic[i];
+            y[i] = yHyperbolic[i];
+        }
+
+        selectionSort(x, nHGrid);
+        selectionSort(y, nHGrid);
+
+        xMin = x[0]; xMax = x[nHGrid-1];
+        yMin = y[0]; yMax = y[nHGrid-1];
 
         _cx = xMin + ((xMax - xMin)/2.0);
         _cy = yMin + ((yMax - yMin)/2.0);
@@ -303,6 +333,25 @@ void CAirfoilDesigner::paintGL()
     glEnd();
     }
 
+    //draw Fuselage...
+    if(ifDrawFuselage)
+    {
+        //for right surface
+        for(int i=0; i<_nSlicesFuselage; i++)
+        {
+            glBegin(GL_TRIANGLES);
+            glColor3f(0.0, 0.0, 1.0);
+            glVertex3f(xRightFuselage[i], yRightFuselage[i], zRightFuselage[i]);
+            glVertex3f(xRightFuselage[i+1], yRightFuselage[i+1], zRightFuselage[i+1]);
+            glVertex3f(xLeftFuselage[i], yLeftFuselage[i], zLeftFuselage[i]);
+
+            glBegin(GL_TRIANGLES);
+            glVertex3f(xLeftFuselage[i], yLeftFuselage[i], zLeftFuselage[i]);
+            glVertex3f(xLeftFuselage[i+1], yLeftFuselage[i+1], zLeftFuselage[i+1]);
+            glVertex3f(xRightFuselage[i+1], yRightFuselage[i+1], zRightFuselage[i+1]);
+
+        }
+    }
 
     //draw grid hyperbolic...
     if(ifDrawHGrid)
@@ -334,6 +383,22 @@ void CAirfoilDesigner::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glFlush();
 }
+
+void CAirfoilDesigner::drawFuselage(int n, float *xr, float *yr, float *zr, float *xl, float *yl, float *zl)
+{
+ _nSlicesFuselage = n;
+ xRightFuselage = xr;
+ xRightFuselage = yr;
+ xRightFuselage = zr;
+ xLeftFuselage = xl;
+ yLeftFuselage = yl;
+ zLeftFuselage = zl;
+ ifDrawAnchors = false;
+ ifDrawKnots = false;
+ ifDrawFuselage = true;
+ updateGL();
+}
+
 
 void CAirfoilDesigner::set_anchors(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2)
 {

@@ -55,7 +55,7 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     connect(ui->pushButton_BEZIER_SHOW_HIDE, SIGNAL(clicked()), this, SLOT(bezier_show_hide()));
 
     connect(ui->pushButton_DRAW_H_GRID, SIGNAL(clicked()), this, SLOT(drawHGrid()));
-
+    connect(ui->pushButton_DRAW_FUSELAGE, SIGNAL(clicked()), this, SLOT(drawFuselage()));
 
     //TCS, Wipro, Cognizant, Genpact, Capgemini, Tech Mahindra...
 
@@ -80,6 +80,13 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
 DialogAirfoilDesigner::~DialogAirfoilDesigner()
 {
     delete ui;
+}
+
+void DialogAirfoilDesigner::drawFuselage()
+{
+    int n = ui->lineEdit_NUMBER_OF_SLICES->text().toInt();
+    float *xr, *yr, *zr, *xl, *yl, *zl;
+    cairfoil_designer->drawFuselage(nKnots-1, xu_, yu_, zu, xl_, yl_, zl);
 }
 
 void DialogAirfoilDesigner::bezier_show_hide()

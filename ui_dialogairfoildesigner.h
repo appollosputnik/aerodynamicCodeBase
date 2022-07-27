@@ -89,6 +89,11 @@ public:
     QPushButton *pushButton_EXPORT_OBJ;
     QPushButton *pushButton_EXPORT_IGES_2;
     QPushButton *pushButton_EXPORT_STEP;
+    QHBoxLayout *horizontalLayout_15;
+    QLabel *label_8;
+    QLineEdit *lineEdit_NUMBER_OF_SLICES;
+    QPushButton *pushButton_DRAW_FUSELAGE;
+    QSpacerItem *horizontalSpacer_12;
     QSpacerItem *verticalSpacer_2;
     QWidget *widget_SCREEN;
     QGridLayout *gridLayout_2;
@@ -101,7 +106,7 @@ public:
     {
         if (DialogAirfoilDesigner->objectName().isEmpty())
             DialogAirfoilDesigner->setObjectName(QString::fromUtf8("DialogAirfoilDesigner"));
-        DialogAirfoilDesigner->resize(698, 567);
+        DialogAirfoilDesigner->resize(845, 640);
         gridLayout_3 = new QGridLayout(DialogAirfoilDesigner);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         horizontalLayout = new QHBoxLayout();
@@ -112,7 +117,7 @@ public:
         scrollArea_CONTROL_WIDGET->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 420, 524));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 427, 618));
         gridLayout = new QGridLayout(scrollAreaWidgetContents_2);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -391,6 +396,31 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_12);
 
+        horizontalLayout_15 = new QHBoxLayout();
+        horizontalLayout_15->setObjectName(QString::fromUtf8("horizontalLayout_15"));
+        horizontalLayout_15->setContentsMargins(5, -1, 5, -1);
+        label_8 = new QLabel(scrollAreaWidgetContents_2);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+
+        horizontalLayout_15->addWidget(label_8);
+
+        lineEdit_NUMBER_OF_SLICES = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_NUMBER_OF_SLICES->setObjectName(QString::fromUtf8("lineEdit_NUMBER_OF_SLICES"));
+
+        horizontalLayout_15->addWidget(lineEdit_NUMBER_OF_SLICES);
+
+        pushButton_DRAW_FUSELAGE = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_DRAW_FUSELAGE->setObjectName(QString::fromUtf8("pushButton_DRAW_FUSELAGE"));
+
+        horizontalLayout_15->addWidget(pushButton_DRAW_FUSELAGE);
+
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_15->addItem(horizontalSpacer_12);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_15);
+
 
         gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
 
@@ -414,7 +444,7 @@ public:
         scrollArea_GRAPHICS_WINDOW->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 237, 255));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 360, 291));
         scrollArea_GRAPHICS_WINDOW->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea_GRAPHICS_WINDOW);
@@ -473,6 +503,8 @@ public:
         pushButton_EXPORT_OBJ->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export OBJ...", nullptr));
         pushButton_EXPORT_IGES_2->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export IGES...", nullptr));
         pushButton_EXPORT_STEP->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export STEP...", nullptr));
+        label_8->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Enter No of slices :", nullptr));
+        pushButton_DRAW_FUSELAGE->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Draw Fuselage", nullptr));
     } // retranslateUi
 
 };
