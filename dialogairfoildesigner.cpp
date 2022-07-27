@@ -85,8 +85,35 @@ DialogAirfoilDesigner::~DialogAirfoilDesigner()
 void DialogAirfoilDesigner::drawFuselage()
 {
     int n = ui->lineEdit_NUMBER_OF_SLICES->text().toInt();
-    float *xr, *yr, *zr, *xl, *yl, *zl;
-    cairfoil_designer->drawFuselage(nKnots-1, xu_, yu_, zu, xl_, yl_, zl);
+    float *xright = new float[nKnots], *yright = new float[nKnots], *zright = new float[nKnots];
+    float *xleft = new float[nKnots], *yleft = new float[nKnots], *zleft = new float[nKnots];
+
+    int n_ = nKnots-1;
+
+    float theta = 0.0;
+    float pi = 4.0 * atan(1/.0);
+    //right surfaces
+    for(int i=0; i<n_+1; i++)
+    {
+        xright[i] = xu_[i];
+        yright[i] = yu_[i] * sin(theta);
+        zright[i] = zu[i] * cos(theta);
+
+        theta += pi/n_;
+    }
+
+    //left surfaces
+    theta = 360;
+    for(int i=0; i<n_+1; i++)
+    {
+        xleft[i] = xl_[i];
+        yleft[i] = yl_[i] * sin(theta);
+        zleft[i] = zl[i] * cos(theta);
+
+        theta -= pi/n_;
+    }
+
+    cairfoil_designer->drawFuselage(n_, xright, yright, zright, xleft, yleft, zleft);
 }
 
 void DialogAirfoilDesigner::bezier_show_hide()
