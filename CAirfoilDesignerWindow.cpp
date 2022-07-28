@@ -67,6 +67,9 @@ bool CAirfoilDesigner::ifDrawAnchors = false;
 bool CAirfoilDesigner::ifDrawKnots = false;
 bool CAirfoilDesigner::ifDrawHGrid = false;
 bool CAirfoilDesigner::ifDrawFuselage = false;
+
+bool CAirfoilDesigner::ifDrawStarboardWing = false;
+bool CAirfoilDesigner::ifDrawPortWing = false;
 ofstream out("test.txt");
 
 CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
@@ -91,6 +94,16 @@ CAirfoilDesigner::CAirfoilDesigner(QWidget *parent) :
 
 CAirfoilDesigner::~CAirfoilDesigner()
 {
+}
+
+void CAirfoilDesigner::set_ifDrawFuselage()
+{
+    if(ifDrawFuselage==true)
+        ifDrawFuselage = false;
+    else {
+        ifDrawFuselage = true;
+    }
+    updateGL();
 }
 
 void CAirfoilDesigner::set_ifDrawAnchors()
@@ -333,6 +346,70 @@ void CAirfoilDesigner::paintGL()
     glEnd();
     }
 
+
+    if(ifDrawStarboardWing)
+    {
+        for(int j=0; j< nKnots-1; j++)
+        {
+            glBegin(GL_TRIANGLES);
+            glColor3f(0.0, 0.0, 1.0);
+            glVertex3f(_knotsXu[j], _knotsYu[j], _knotsZu[j]);
+            glVertex3f(_knotsXu[j+1], _knotsYu[j+1], _knotsZu[j+1]);
+            glVertex3f(_starboardXu[j], _starboardYu[j], _starboardZu[j]);
+
+            glBegin(GL_TRIANGLES);
+            glVertex3f(_starboardXu[j], _starboardYu[j], _starboardZu[j]);
+            glVertex3f(_starboardXu[j+1], _starboardYu[j+1], _starboardZu[j+1]);
+            glVertex3f(_knotsXu[j+1], _knotsYu[j+1], _knotsZu[j+1]);
+        }
+
+        for(int j=0; j< nKnots-1; j++)
+        {
+            glBegin(GL_TRIANGLES);
+            glColor3f(0.0, 0.0, 1.0);
+            glVertex3f(_knotsXl[j], _knotsYl[j], _knotsZl[j]);
+            glVertex3f(_knotsXl[j+1], _knotsYl[j+1], _knotsZl[j+1]);
+            glVertex3f(_starboardXl[j], _starboardYl[j], _starboardZl[j]);
+
+            glBegin(GL_TRIANGLES);
+            glVertex3f(_starboardXl[j], _starboardYl[j], _starboardZl[j]);
+            glVertex3f(_starboardXl[j+1], _starboardYl[j+1], _starboardZl[j+1]);
+            glVertex3f(_knotsXl[j+1], _knotsYl[j+1], _knotsZl[j+1]);
+        }
+
+    }
+
+    if(ifDrawPortWing)
+    {
+        for(int j=0; j< nKnots-1; j++)
+        {
+            glBegin(GL_TRIANGLES);
+            glColor3f(0.0, 0.0, 1.0);
+            glVertex3f(_knotsXu[j], _knotsYu[j], _knotsZu[j]);
+            glVertex3f(_knotsXu[j+1], _knotsYu[j+1], _knotsZu[j+1]);
+            glVertex3f(_portXu[j], _portYu[j], _portZu[j]);
+
+            glBegin(GL_TRIANGLES);
+            glVertex3f(_portXu[j], _portYu[j], _portZu[j]);
+            glVertex3f(_portXu[j+1], _portYu[j+1], _portZu[j+1]);
+            glVertex3f(_knotsXu[j+1], _knotsYu[j+1], _knotsZu[j+1]);
+        }
+
+        for(int j=0; j< nKnots-1; j++)
+        {
+            glBegin(GL_TRIANGLES);
+            glColor3f(0.0, 0.0, 1.0);
+            glVertex3f(_knotsXl[j], _knotsYl[j], _knotsZl[j]);
+            glVertex3f(_knotsXl[j+1], _knotsYl[j+1], _knotsZl[j+1]);
+            glVertex3f(_portXl[j], _portYl[j], _portZl[j]);
+
+            glBegin(GL_TRIANGLES);
+            glVertex3f(_portXl[j], _portYl[j], _portZl[j]);
+            glVertex3f(_portXl[j+1], _portYl[j+1], _portZl[j+1]);
+            glVertex3f(_knotsXl[j+1], _knotsYl[j+1], _knotsZl[j+1]);
+        }
+    }
+
     //draw Fuselage...
     if(ifDrawFuselage)
     {
@@ -397,6 +474,22 @@ void CAirfoilDesigner::paintGL()
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
     glFlush();
+}
+
+void CAirfoilDesigner::draw_star_wing(int n, float *xu, float *yu, float *zu, float *xl, float *yl, float *zl )
+{
+     nKnots = n;
+     _starboardXu = xu; _starboardYu = yu; _starboardZu = zu;
+     _starboardXl = xl; _starboardYl = yl; _starboardZl = zl;
+     updateGL();
+}
+void CAirfoilDesigner::draw_port_wing(int n, float *xu, float *yu, float *zu, float *xl, float *yl, float *zl )
+{
+    nKnots = n;
+    _portXu = xu; _portYu = yu; _portZu = zu;
+    _portXl = xl; _portYl = yl; _portZl = zl;
+
+    updateGL();
 }
 
 void CAirfoilDesigner::drawFuselage(int n1, int n2, float **xr, float **yr, float **zr, float **xl, float **yl, float **zl)

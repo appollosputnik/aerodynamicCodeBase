@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
+    <width>987</width>
     <height>640</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>427</width>
+          <width>475</width>
           <height>618</height>
          </rect>
         </property>
@@ -527,7 +527,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_NUMBER_OF_SLICES"/>
+              <widget class="QLineEdit" name="lineEdit_NUMBER_OF_SLICES">
+               <property name="text">
+                <string>2</string>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_DRAW_FUSELAGE">
@@ -548,6 +552,44 @@
                 </size>
                </property>
               </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_16">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Enter Taper Ratio :</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_ENTER_TAPER_RATIO">
+               <property name="text">
+                <string>0.3</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_DRAW_STARBOARD_WING">
+               <property name="text">
+                <string>Draw Starboard Wing</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_DRAW_PORT_WING">
+               <property name="text">
+                <string>Draw Port Wing</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -591,7 +633,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>360</width>
+               <width>454</width>
                <height>291</height>
               </rect>
              </property>

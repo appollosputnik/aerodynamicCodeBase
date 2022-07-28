@@ -21,11 +21,14 @@ class CAirfoilDesigner : public QGLWidget
 
 public:
     explicit CAirfoilDesigner(QWidget *parent = 0);
-    ~CAirfoilDesigner();
+    ~CAirfoilDesigner();    
+    void draw_star_wing(int, float *xu, float *yu, float *zu, float *xl, float *yl, float *zl );
+    void draw_port_wing(int, float *xu, float *yu, float *zu, float *xl, float *yl, float *zl );
     void drawFuselage(int n1, int n2, float **xr, float **yr, float **zr, float **xl, float **yl, float **zl);
     void set_ifDrawAnchors();
     void set_ifDrawKnots();
     void set_ifDrawHGrid();
+    void set_ifDrawFuselage();
     void generateGridOverAirfoil(float n);
     void selectionSort(float arr[], int size);
     void set_anchors(int n, float *x1, float *y1, float *z1, float *x2, float *y2, float *z2);
@@ -46,6 +49,7 @@ private:
     static bool ifDrawAnchors;
     static bool ifDrawKnots;
     static bool ifDrawHGrid;
+    static bool ifDrawPortWing, ifDrawStarboardWing;
     int nHGrid;
     float inter;
     float * xHyperbolic, *yHyperbolic, *chi, *eta;
@@ -58,6 +62,9 @@ private:
     int nAnchors, nKnots;
     float *_anchorXu, *_anchorYu, *_anchorZu, *_anchorXl, *_anchorYl, *_anchorZl;
     float *_knotsXu, *_knotsYu, *_knotsZu, *_knotsXl, *_knotsYl, *_knotsZl;
+    float *_starboardXu, *_starboardYu, *_starboardZu, *_starboardXl,
+    *_starboardYl, *_starboardZl;
+    float *_portXu, *_portYu, *_portZu, *_portXl, *_portYl, *_portZl;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// \brief Aircraft
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////

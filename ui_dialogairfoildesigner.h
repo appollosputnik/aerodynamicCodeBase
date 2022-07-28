@@ -94,6 +94,11 @@ public:
     QLineEdit *lineEdit_NUMBER_OF_SLICES;
     QPushButton *pushButton_DRAW_FUSELAGE;
     QSpacerItem *horizontalSpacer_12;
+    QHBoxLayout *horizontalLayout_16;
+    QLabel *label_9;
+    QLineEdit *lineEdit_ENTER_TAPER_RATIO;
+    QPushButton *pushButton_DRAW_STARBOARD_WING;
+    QPushButton *pushButton_DRAW_PORT_WING;
     QSpacerItem *verticalSpacer_2;
     QWidget *widget_SCREEN;
     QGridLayout *gridLayout_2;
@@ -106,7 +111,7 @@ public:
     {
         if (DialogAirfoilDesigner->objectName().isEmpty())
             DialogAirfoilDesigner->setObjectName(QString::fromUtf8("DialogAirfoilDesigner"));
-        DialogAirfoilDesigner->resize(845, 640);
+        DialogAirfoilDesigner->resize(987, 640);
         gridLayout_3 = new QGridLayout(DialogAirfoilDesigner);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         horizontalLayout = new QHBoxLayout();
@@ -117,7 +122,7 @@ public:
         scrollArea_CONTROL_WIDGET->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 427, 618));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 475, 618));
         gridLayout = new QGridLayout(scrollAreaWidgetContents_2);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         verticalLayout_2 = new QVBoxLayout();
@@ -421,6 +426,32 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_15);
 
+        horizontalLayout_16 = new QHBoxLayout();
+        horizontalLayout_16->setObjectName(QString::fromUtf8("horizontalLayout_16"));
+        horizontalLayout_16->setContentsMargins(5, -1, 5, -1);
+        label_9 = new QLabel(scrollAreaWidgetContents_2);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        horizontalLayout_16->addWidget(label_9);
+
+        lineEdit_ENTER_TAPER_RATIO = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_ENTER_TAPER_RATIO->setObjectName(QString::fromUtf8("lineEdit_ENTER_TAPER_RATIO"));
+
+        horizontalLayout_16->addWidget(lineEdit_ENTER_TAPER_RATIO);
+
+        pushButton_DRAW_STARBOARD_WING = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_DRAW_STARBOARD_WING->setObjectName(QString::fromUtf8("pushButton_DRAW_STARBOARD_WING"));
+
+        horizontalLayout_16->addWidget(pushButton_DRAW_STARBOARD_WING);
+
+        pushButton_DRAW_PORT_WING = new QPushButton(scrollAreaWidgetContents_2);
+        pushButton_DRAW_PORT_WING->setObjectName(QString::fromUtf8("pushButton_DRAW_PORT_WING"));
+
+        horizontalLayout_16->addWidget(pushButton_DRAW_PORT_WING);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_16);
+
 
         gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
 
@@ -444,7 +475,7 @@ public:
         scrollArea_GRAPHICS_WINDOW->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 360, 291));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 454, 291));
         scrollArea_GRAPHICS_WINDOW->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea_GRAPHICS_WINDOW);
@@ -504,7 +535,12 @@ public:
         pushButton_EXPORT_IGES_2->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export IGES...", nullptr));
         pushButton_EXPORT_STEP->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Export STEP...", nullptr));
         label_8->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Enter No of slices :", nullptr));
+        lineEdit_NUMBER_OF_SLICES->setText(QCoreApplication::translate("DialogAirfoilDesigner", "2", nullptr));
         pushButton_DRAW_FUSELAGE->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Draw Fuselage", nullptr));
+        label_9->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Enter Taper Ratio :", nullptr));
+        lineEdit_ENTER_TAPER_RATIO->setText(QCoreApplication::translate("DialogAirfoilDesigner", "0.3", nullptr));
+        pushButton_DRAW_STARBOARD_WING->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Draw Starboard Wing", nullptr));
+        pushButton_DRAW_PORT_WING->setText(QCoreApplication::translate("DialogAirfoilDesigner", "Draw Port Wing", nullptr));
     } // retranslateUi
 
 };

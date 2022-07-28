@@ -82,6 +82,47 @@ DialogAirfoilDesigner::~DialogAirfoilDesigner()
     delete ui;
 }
 
+void DialogAirfoilDesigner::drawStarBoardWing()
+{
+    //nKnots, xu_, yu_, zu, xl_, yl_, zl
+
+    int taperRatio = ui->lineEdit_ENTER_TAPER_RATIO->text().toFloat();
+    float *xu_tip = new float[nKnots], *yu_tip = new float[nKnots], *zu_tip = new float[nKnots];
+    float *xl_tip = new float[nKnots], *yl_tip = new float[nKnots], *zl_tip = new float[nKnots];
+
+    for(int i=0; i<nKnots; i++)
+    {
+        xu_tip[i] = taperRatio * xu_[i];
+        yu_tip[i] = taperRatio * yu_[i];
+        zu_tip[i] = taperRatio * zu[i] * (10.0);
+        xl_tip[i] = taperRatio * xl_[i];
+        yl_tip[i] = taperRatio * yl_[i];
+        zl_tip[i] = taperRatio * zl[i] * (10.0);
+    }
+
+    cairfoil_designer->draw_star_wing(nKnots, xu_tip, yu_tip, zu_tip, xl_tip, yl_tip, zl_tip);
+}
+
+void DialogAirfoilDesigner::drawPortWing()
+{
+    int taperRatio = ui->lineEdit_ENTER_TAPER_RATIO->text().toFloat();
+    float *xu_tip = new float[nKnots], *yu_tip = new float[nKnots], *zu_tip = new float[nKnots];
+    float *xl_tip = new float[nKnots], *yl_tip = new float[nKnots], *zl_tip = new float[nKnots];
+
+    for(int i=0; i<nKnots; i++)
+    {
+        xu_tip[i] = taperRatio * xu_[i];
+        yu_tip[i] = taperRatio * yu_[i];
+        zu_tip[i] = taperRatio * zu[i] * (-10.0);
+        xl_tip[i] = taperRatio * xl_[i];
+        yl_tip[i] = taperRatio * yl_[i];
+        zl_tip[i] = taperRatio * zl[i] * (-10.0);
+    }
+
+
+    cairfoil_designer->draw_port_wing(nKnots, xu_tip, yu_tip, zu_tip, xl_tip, yl_tip, zl_tip);
+}
+
 void DialogAirfoilDesigner::drawFuselage()
 {
     int n = ui->lineEdit_NUMBER_OF_SLICES->text().toInt();
@@ -125,6 +166,11 @@ void DialogAirfoilDesigner::drawFuselage()
     }
 
     cairfoil_designer->drawFuselage(nKnots, n, xright, yright, zright, xleft, yleft, zleft);
+}
+
+void DialogAirfoilDesigner::fuselage_show_hide()
+{
+    cairfoil_designer->set_ifDrawFuselage();
 }
 
 void DialogAirfoilDesigner::bezier_show_hide()

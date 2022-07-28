@@ -26,7 +26,10 @@ private:
     CAirfoilDesigner *cairfoil_designer;
     float xMin, xMax, yMin, yMax, xMinKnots, xMaxKnots, yMinKnots, yMaxKnots;
 private slots:
+    void drawStarBoardWing();
+    void drawPortWing();
     void drawFuselage();
+    void fuselage_show_hide();
     void bezier_show_hide();
     void anchor_show_hide();
     void hyperbolic_grid_show_hide();
