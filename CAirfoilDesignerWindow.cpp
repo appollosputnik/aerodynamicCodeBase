@@ -337,19 +337,34 @@ void CAirfoilDesigner::paintGL()
     if(ifDrawFuselage)
     {
         //for right surface
-        for(int i=0; i<_nSlicesFuselage; i++)
+        for(int i=0; i<_nOfSlicesOnFuselage-1; i++)
         {
-            glBegin(GL_TRIANGLES);
-            glColor3f(0.0, 0.0, 1.0);
-            glVertex3f(xRightFuselage[i], yRightFuselage[i], zRightFuselage[i]);
-            glVertex3f(xRightFuselage[i+1], yRightFuselage[i+1], zRightFuselage[i+1]);
-            glVertex3f(xLeftFuselage[i], yLeftFuselage[i], zLeftFuselage[i]);
+            for(int j=0; j<_nOfPointsOnFuselage; j++)
+            {
+                glBegin(GL_TRIANGLES);
+                glColor3f(0.0, 0.0, 1.0);
+                glVertex3f(xRightFuselage[i][j], yRightFuselage[i][j], zRightFuselage[i][j]);
+                glVertex3f(xRightFuselage[i][j+1], yRightFuselage[i][j+1], zRightFuselage[i][j+1]);
+                glVertex3f(xRightFuselage[i+1][j], yRightFuselage[i+1][j], zRightFuselage[i+1][j]);
 
-            glBegin(GL_TRIANGLES);
-            glVertex3f(xLeftFuselage[i], yLeftFuselage[i], zLeftFuselage[i]);
-            glVertex3f(xLeftFuselage[i+1], yLeftFuselage[i+1], zLeftFuselage[i+1]);
-            glVertex3f(xRightFuselage[i+1], yRightFuselage[i+1], zRightFuselage[i+1]);
+                glBegin(GL_TRIANGLES);
+                glVertex3f(xRightFuselage[i+1][j], yRightFuselage[i+1][j], zRightFuselage[i+1][j]);
+                glVertex3f(xRightFuselage[i+1][j+1], yRightFuselage[i+1][j+1], zRightFuselage[i+1][j+1]);
+                glVertex3f(xRightFuselage[i][j+1], yRightFuselage[i][j+1], zRightFuselage[i][j+1]);
 
+
+                glBegin(GL_TRIANGLES);
+                glColor3f(0.0, 0.0, 1.0);
+                glVertex3f(xLeftFuselage[i][j], yLeftFuselage[i][j], zLeftFuselage[i][j]);
+                glVertex3f(xLeftFuselage[i][j+1], yLeftFuselage[i][j+1], zLeftFuselage[i][j+1]);
+                glVertex3f(xLeftFuselage[i+1][j], yLeftFuselage[i+1][j], zLeftFuselage[i+1][j]);
+
+                glBegin(GL_TRIANGLES);
+                glVertex3f(xLeftFuselage[i+1][j], yLeftFuselage[i+1][j], zLeftFuselage[i+1][j]);
+                glVertex3f(xLeftFuselage[i+1][j+1], yLeftFuselage[i+1][j+1], zLeftFuselage[i+1][j+1]);
+                glVertex3f(xLeftFuselage[i][j+1], yLeftFuselage[i][j+1], zLeftFuselage[i][j+1]);
+
+           }
         }
     }
 
@@ -384,9 +399,10 @@ void CAirfoilDesigner::paintGL()
     glFlush();
 }
 
-void CAirfoilDesigner::drawFuselage(int n, float *xr, float *yr, float *zr, float *xl, float *yl, float *zl)
+void CAirfoilDesigner::drawFuselage(int n1, int n2, float **xr, float **yr, float **zr, float **xl, float **yl, float **zl)
 {
- _nSlicesFuselage = n;
+ _nOfPointsOnFuselage = n1;
+ _nOfSlicesOnFuselage = n2;
  xRightFuselage = xr;
  xRightFuselage = yr;
  xRightFuselage = zr;

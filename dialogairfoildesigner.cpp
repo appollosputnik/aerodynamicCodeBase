@@ -85,35 +85,46 @@ DialogAirfoilDesigner::~DialogAirfoilDesigner()
 void DialogAirfoilDesigner::drawFuselage()
 {
     int n = ui->lineEdit_NUMBER_OF_SLICES->text().toInt();
-    float *xright = new float[nKnots], *yright = new float[nKnots], *zright = new float[nKnots];
-    float *xleft = new float[nKnots], *yleft = new float[nKnots], *zleft = new float[nKnots];
+    float **xright = new float*[n+1], **yright = new float*[n+1], **zright = new float*[n+1];
+    float **xleft = new float*[n+1], **yleft = new float*[n+1], **zleft = new float*[n+1];
 
-    int n_ = nKnots-1;
+
 
     float theta = 0.0;
     float pi = 4.0 * atan(1/.0);
     //right surfaces
-    for(int i=0; i<n_+1; i++)
+    for(int i=0; i<n+1; i++)
     {
-        xright[i] = xu_[i];
-        yright[i] = yu_[i] * sin(theta);
-        zright[i] = zu[i] * cos(theta);
+        xright[i] = new float[nKnots];
+        yright[i] = new float[nKnots];
+        zright[i] = new float[nKnots];
 
-        theta += pi/n_;
+        for(int j=0; j<nKnots; j++) {
+            xright[i][j] = xu_[j];
+            yright[i][j] = yu_[j] * cos(theta);
+            zright[i][j] = zu[j]  * sin(theta);
+        }
+
+        theta += pi/n;
     }
 
     //left surfaces
     theta = 360;
-    for(int i=0; i<n_+1; i++)
+    for(int i=0; i<n+1; i++)
     {
-        xleft[i] = xl_[i];
-        yleft[i] = yl_[i] * sin(theta);
-        zleft[i] = zl[i] * cos(theta);
+        xleft[i] = new float[nKnots];
+        yleft[i] = new float[nKnots];
+        zleft[i] = new float[nKnots];
 
-        theta -= pi/n_;
+        for(int j=0; j<nKnots; j++) {
+        xleft[i][j] = xl_[i];
+        yleft[i][j] = yl_[i] * cos(theta);
+        zleft[i][j] = zl[i] * sin(theta);
+        }
+        theta -= pi/n;
     }
 
-    cairfoil_designer->drawFuselage(n_, xright, yright, zright, xleft, yleft, zleft);
+    cairfoil_designer->drawFuselage(nKnots, n, xright, yright, zright, xleft, yleft, zleft);
 }
 
 void DialogAirfoilDesigner::bezier_show_hide()
