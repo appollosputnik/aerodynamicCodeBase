@@ -1,18 +1,15 @@
-#include "dialogairfoildesigner.h"
-#include "ui_dialogairfoildesigner.h"
+#include "dialogterrain.h"
+#include "ui_dialogterrain.h"
 #include <QFileDialog>
 #include <QTextStream>
 #include <math.h>
 #include <QSplitter>
 #include <QMessageBox>
-
-
-
-int DialogAirfoilDesigner::i = 0;
-int DialogAirfoilDesigner::N = 0;
-DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
+int DialogTerrain::i = 0;
+int DialogTerrain::N = 0;
+DialogTerrain::DialogTerrain(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::DialogAirfoilDesigner),
+    ui(new Ui::DialogTerrain),
     xu(NULL),
     yu(NULL),
     zu(NULL),
@@ -80,12 +77,12 @@ DialogAirfoilDesigner::DialogAirfoilDesigner(QWidget *parent) :
     N = -1;
 }
 
-DialogAirfoilDesigner::~DialogAirfoilDesigner()
+DialogTerrain::~DialogTerrain()
 {
     delete ui;
 }
 
-void DialogAirfoilDesigner::drawStarBoardWing()
+void DialogTerrain::drawStarBoardWing()
 {
     //nKnots, xu_, yu_, zu, xl_, yl_, zl
 
@@ -106,7 +103,7 @@ void DialogAirfoilDesigner::drawStarBoardWing()
     cairfoil_designer->draw_star_wing(nKnots, xu_tip, yu_tip, zu_tip, xl_tip, yl_tip, zl_tip);
 }
 
-void DialogAirfoilDesigner::drawPortWing()
+void DialogTerrain::drawPortWing()
 {
     int taperRatio = ui->lineEdit_ENTER_TAPER_RATIO->text().toFloat();
     float *xu_tip = new float[nKnots], *yu_tip = new float[nKnots], *zu_tip = new float[nKnots];
@@ -126,7 +123,7 @@ void DialogAirfoilDesigner::drawPortWing()
     cairfoil_designer->draw_port_wing(nKnots, xu_tip, yu_tip, zu_tip, xl_tip, yl_tip, zl_tip);
 }
 
-void DialogAirfoilDesigner::drawFuselage()
+void DialogTerrain::drawFuselage()
 {
     int n = ui->lineEdit_NUMBER_OF_SLICES->text().toInt();
     float **xright = new float*[n+1], **yright = new float*[n+1], **zright = new float*[n+1];
@@ -171,69 +168,69 @@ void DialogAirfoilDesigner::drawFuselage()
     cairfoil_designer->drawFuselage(nKnots, n, xright, yright, zright, xleft, yleft, zleft);
 }
 
-void DialogAirfoilDesigner::fuselage_show_hide()
+void DialogTerrain::fuselage_show_hide()
 {
     cairfoil_designer->set_ifDrawFuselage();
 }
 
-void DialogAirfoilDesigner::bezier_show_hide()
+void DialogTerrain::bezier_show_hide()
 {
     cairfoil_designer->set_ifDrawKnots();
 }
 
-void DialogAirfoilDesigner::anchor_show_hide()
+void DialogTerrain::anchor_show_hide()
 {
     cairfoil_designer->set_ifDrawAnchors();
 }
 
-void DialogAirfoilDesigner::hyperbolic_grid_show_hide()
+void DialogTerrain::hyperbolic_grid_show_hide()
 {
     cairfoil_designer->set_ifDrawHGrid();
 }
 
-void DialogAirfoilDesigner::_import_stl()
+void DialogTerrain::_import_stl()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Import STL"),
                                                      ".",
                                                      ("DataSTL (*.stl)"));
 }
-void DialogAirfoilDesigner::_export_stl()
+void DialogTerrain::_export_stl()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Export STL"),
                                                      ".",
                                                      ("DataSTL (*.stl)"));
 }
-void DialogAirfoilDesigner::_import_obj()
+void DialogTerrain::_import_obj()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Import OBJ"),
                                                      ".",
                                                      ("DataOBJ (*.obj)"));
 }
-void DialogAirfoilDesigner::_export_obj()
+void DialogTerrain::_export_obj()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Export OBJ"),
                                                      ".",
                                                      ("DataOBJ (*.obj)"));
 }
-void DialogAirfoilDesigner::_import_iges()
+void DialogTerrain::_import_iges()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Import IGES"),
                                                      ".",
                                                      ("DataIGES (*.iges)"));
 }
-void DialogAirfoilDesigner::_export_iges()
+void DialogTerrain::_export_iges()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Export IGES"),
                                                      ".",
                                                      ("DataIGES (*.iges)"));
 }
-void DialogAirfoilDesigner::_import_step()
+void DialogTerrain::_import_step()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Import STEP"),
                                                      ".",
                                                      ("DataSTEP (*.step)"));
 }
-void DialogAirfoilDesigner::_export_step()
+void DialogTerrain::_export_step()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Export STEP"),
                                                      ".",
@@ -241,13 +238,13 @@ void DialogAirfoilDesigner::_export_step()
 }
 
 
-void DialogAirfoilDesigner::drawHGrid()
+void DialogTerrain::drawHGrid()
 {
 
     cairfoil_designer->generateGridOverAirfoil(ui->lineEdit_nHGRID->text().toFloat());
 }
 
-void DialogAirfoilDesigner::push_apply_full()
+void DialogTerrain::push_apply_full()
 {
     float chord = ui->lineEdit_CHORD_LENGTH->text().toFloat();
     float camber = ui->lineEdit_CAMBER->text().toFloat();
@@ -548,11 +545,11 @@ void DialogAirfoilDesigner::push_apply_full()
             set_bezier_knots();
             }
 }
-void DialogAirfoilDesigner::push_apply_anchors()
+void DialogTerrain::push_apply_anchors()
 {
 
 }
-void DialogAirfoilDesigner::push_read_anchors()
+void DialogTerrain::push_read_anchors()
 {
     xAnchorU=nullptr, yAnchorU=nullptr, zAnchorU=nullptr;
     xAnchorL=nullptr, yAnchorL=nullptr, zAnchorL=nullptr;
@@ -591,7 +588,7 @@ void DialogAirfoilDesigner::push_read_anchors()
        file.close();
 }
 
-float DialogAirfoilDesigner::fact(int n)
+float DialogTerrain::fact(int n)
 {
         int i;
         unsigned long long fact = 1;
@@ -607,11 +604,11 @@ float DialogAirfoilDesigner::fact(int n)
         }      
 }
 
-void DialogAirfoilDesigner::set_anchors()
+void DialogTerrain::set_anchors()
 {
     cairfoil_designer->set_anchors(N, xAnchorU, yAnchorU, zAnchorU, xAnchorL, yAnchorL, zAnchorL );
 }
-void DialogAirfoilDesigner::set_bezier_knots()
+void DialogTerrain::set_bezier_knots()
 {
     cairfoil_designer->set_bezier_knots(nKnots, xu_, yu_, zu, xl_, yl_, zl );
 }

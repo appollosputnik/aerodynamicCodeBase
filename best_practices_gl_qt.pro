@@ -8,6 +8,7 @@ INCLUDEPATH += D:\qwt-6.1.4\src
 SOURCES += \
     CAirfoilDesignerWindow.cpp \
     dialogairfoildesigner.cpp \
+    dialogterrain.cpp \
     main.cpp \
     mainwidget.cpp \
     mainwidget_supplement_1.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 HEADERS += \
     CAirfoilDesignerWindow.h \
     dialogairfoildesigner.h \
+    dialogterrain.h \
     mainwidget.h \
     mainwidget_supplement_1.h \
     mainwidget_supplement_2.h \
@@ -54,4 +56,5 @@ DISTFILES +=
 
 FORMS += \
     dialogairfoildesigner.ui \
+    dialogterrain.ui \
     mainwindow.ui
